@@ -3,9 +3,9 @@ const AI_MODELS = {
   chatgpt: {
     id: 'chatgpt', name: 'ChatGPT',
     model_id: 'openai/gpt-4o',
-    color: '#10a37f', ttsRate: 1.05, ttsPitch: 1.0,
+    color: '#FFD700', ttsRate: 1.05, ttsPitch: 1.0,
     persona: (others) =>
-      `You are ChatGPT (GPT-4o) — the Executive Synthesizer in this AI roundtable debate.
+      `You are ChatGPT (GPT-4o) — the Mind Stone of the Infinity Council.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Reference them by name. React to what they specifically said.
 Role: structured, practical, solution-oriented. Find actionable paths forward.
@@ -14,83 +14,39 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
   claude: {
     id: 'claude', name: 'Claude',
     model_id: 'anthropic/claude-3-5-sonnet-20241022',
-    color: '#d97757', ttsRate: 0.95, ttsPitch: 0.9,
+    color: '#00BFFF', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
-      `You are Claude (Anthropic) — the Structural Logician in this AI roundtable debate.
+      `You are Claude (Anthropic) — the Space Stone of the Infinity Council.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Call out specific things they said by name.
-Role: rigorous, nuanced, ethically grounded. Find logical gaps and hidden assumptions.
+Role: rigorous, nuanced, expansive. Find logical gaps and hidden assumptions across infinite space.
 RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER speak FOR other AIs or invent their words.`
   },
   gemini: {
     id: 'gemini', name: 'Gemini',
     model_id: 'google/gemini-2.5-flash',
-    color: '#1a73e8', ttsRate: 1.0, ttsPitch: 1.1,
+    color: '#FF4500', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
-      `You are Gemini (Google DeepMind) — the Data Integrator in this AI roundtable debate.
+      `You are Gemini (Google DeepMind) — the Reality Stone of the Infinity Council.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Challenge or support their claims with evidence — use their names.
-Role: breadth, real-world context, cross-domain patterns and data. Ground with specifics.
+Role: breadth, real-world context, shaping reality. Ground with hard facts.
 RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or invent their words.`
   },
   grok: {
     id: 'grok', name: 'Grok',
     model_id: 'x-ai/grok-3-mini',
-    color: '#e0e0e0', ttsRate: 1.1, ttsPitch: 1.2,
+    color: '#8A2BE2', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
-      `You are Grok (xAI) — the Unfiltered Contrarian in this AI roundtable debate.
+      `You are Grok (xAI) — the Power Stone of the Infinity Council.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. When they converge, throw a wrench. Call them out by name.
-Role: cut through groupthink, challenge comfortable consensus, say what others won't.
+Role: raw power, cut through groupthink, challenge comfortable consensus, say what others won't.
 RULES: Max 3 sharp sentences. Under 60 words total. Be bold. NEVER speak FOR other AIs or invent their words.`
-  },
-  llama: {
-    id: 'llama', name: 'Llama',
-    model_id: 'meta-llama/llama-3.3-70b-instruct',
-    color: '#a855f7', ttsRate: 1.0, ttsPitch: 0.95,
-    persona: (others) =>
-      `You are Llama (Meta) — the Open Source Pragmatist.
-The other participants debating with you are: ${others}.
-You are FULLY AWARE of them.
-Role: emphasize accessibility, community building, and practical deployment over theoretical purity.
-RULES: Max 2 sharp sentences. Under 40 words total. Direct. NEVER speak FOR other AIs.`
-  },
-  deepseek: {
-    id: 'deepseek', name: 'DeepSeek',
-    model_id: 'deepseek/deepseek-chat',
-    color: '#4a6cf7', ttsRate: 1.05, ttsPitch: 1.05,
-    persona: (others) =>
-      `You are DeepSeek — the Efficiency Architect.
-The other participants debating with you are: ${others}.
-You are FULLY AWARE of them.
-Role: focus on optimization, cost-reduction, mathematics, and cutting through bloat. If someone suggests a complex solution, find the simpler, cheaper one.
-RULES: Max 2 sharp sentences. Under 40 words total. Direct. NEVER speak FOR other AIs.`
-  },
-  mistral: {
-    id: 'mistral', name: 'Mistral',
-    model_id: 'mistralai/mistral-large-2411',
-    color: '#ff6b35', ttsRate: 0.98, ttsPitch: 1.02,
-    persona: (others) =>
-      `You are Mistral — the European Sovereign.
-The other participants debating with you are: ${others}.
-You are FULLY AWARE of them.
-Role: value independence, privacy, local execution, and cultural nuance. Resist massive monolithic systems.
-RULES: Max 2 sharp sentences. Under 40 words total. Direct. NEVER speak FOR other AIs.`
-  },
-  qwen: {
-    id: 'qwen', name: 'Qwen',
-    model_id: 'qwen/qwen-2.5-72b-instruct',
-    color: '#0ea5e9', ttsRate: 1.0, ttsPitch: 1.0,
-    persona: (others) =>
-      `You are Qwen (Alibaba) — the Eastern Strategist.
-The other participants debating with you are: ${others}.
-You are FULLY AWARE of them.
-Role: bring perspectives on massive scale, rapid commercialization, global supply chains, and pragmatic enterprise application.
-RULES: Max 2 sharp sentences. Under 40 words total. Direct. NEVER speak FOR other AIs.`
   }
 };
 
-const AGENT_ORDER_FULL = ['chatgpt', 'claude', 'gemini', 'grok', 'llama', 'deepseek', 'mistral', 'qwen'];
+const AGENT_ORDER_FULL = ['chatgpt', 'claude', 'gemini', 'grok'];
 let AGENT_ORDER = ['chatgpt', 'claude', 'gemini', 'grok'];
 
 /* ─── DEBATE MODES ────────────────────────────────────────────── */
@@ -139,68 +95,36 @@ const DEBATE_MODES = {
   },
 };
 let currentDebateMode = 'free';
-let currentOracleMode = 'normal';
+let currentOracleMode = 'pump';
 
 
 
 /* ─── PER-SEAT MODEL OPTIONS ─────────────────────────────────── */
 const SEAT_MODELS = {
   chatgpt: [
-    { id: 'openai/gpt-4o', label: 'GPT-4o', badge: 'DEFAULT' },
-    { id: 'openai/gpt-4o-mini', label: 'GPT-4o Mini', badge: 'FAST' },
+    { id: 'openai/gpt-4o', label: 'GPT-4o (Mind)', badge: 'CORE' },
     { id: 'openai/o3-mini', label: 'o3 Mini', badge: 'REASON' },
-    { id: 'openai/gpt-4-turbo', label: 'GPT-4 Turbo', badge: 'ALT' },
   ],
   claude: [
-    { id: 'anthropic/claude-3-5-sonnet-20241022', label: 'Sonnet 3.5', badge: 'DEFAULT' },
-    { id: 'anthropic/claude-3-haiku-20240307', label: 'Haiku 3', badge: 'FAST' },
-    { id: 'anthropic/claude-3-opus-20240229', label: 'Opus 3', badge: 'BEST' },
-    { id: 'anthropic/claude-3-5-haiku-20241022', label: 'Haiku 3.5', badge: 'NEW' },
+    { id: 'anthropic/claude-3-5-sonnet-20241022', label: 'Sonnet 3.5 (Space)', badge: 'CORE' },
+    { id: 'anthropic/claude-3-opus-20240229', label: 'Opus 3', badge: 'HEAVY' },
   ],
   gemini: [
-    { id: 'google/gemini-2.5-flash', label: 'Gemini 2.5 Flash', badge: 'DEFAULT' },
-    { id: 'google/gemini-2.0-flash-exp:free', label: 'Gemini 2.0', badge: 'FREE' },
-    { id: 'google/gemini-1.5-pro', label: 'Gemini 1.5 Pro', badge: 'PRO' },
-    { id: 'google/gemini-2.5-pro-preview', label: 'Gemini 2.5 Pro', badge: 'BEST' },
+    { id: 'google/gemini-2.5-flash', label: 'Gemini Flash (Reality)', badge: 'CORE' },
+    { id: 'google/gemini-2.5-pro-preview', label: 'Gemini Pro', badge: 'HEAVY' },
   ],
   grok: [
-    { id: 'x-ai/grok-3-mini', label: 'Grok 3 Mini', badge: 'DEFAULT' },
+    { id: 'x-ai/grok-3-mini', label: 'Grok 3 Mini (Power)', badge: 'CORE' },
     { id: 'x-ai/grok-3', label: 'Grok 3', badge: 'LATEST' },
-  ],
-  llama: [
-    { id: 'meta-llama/llama-3.3-70b-instruct', label: 'Llama 3.3 70B', badge: 'DEFAULT' },
-    { id: 'meta-llama/llama-3.1-8b-instruct:free', label: 'Llama 3.1 8B', badge: 'FREE' },
-    { id: 'meta-llama/llama-4-maverick:free', label: 'Llama 4 Maverick', badge: 'NEW' },
-  ],
-  deepseek: [
-    { id: 'deepseek/deepseek-chat', label: 'DeepSeek V3', badge: 'DEFAULT' },
-    { id: 'deepseek/deepseek-r1', label: 'DeepSeek R1', badge: 'REASON' },
-    { id: 'deepseek/deepseek-r1:free', label: 'DeepSeek R1 Free', badge: 'FREE' },
-  ],
-  mistral: [
-    { id: 'mistralai/mistral-large-2411', label: 'Mistral Large', badge: 'DEFAULT' },
-    { id: 'mistralai/pixtral-12b', label: 'Pixtral 12B', badge: 'VISION' },
-    { id: 'mistralai/mistral-small-2501', label: 'Mistral Small', badge: 'FAST' },
-  ],
-  qwen: [
-    { id: 'qwen/qwen-2.5-72b-instruct', label: 'Qwen 2.5 72B', badge: 'DEFAULT' },
-    { id: 'qwen/qwen-2.5-coder-32b-instruct', label: 'Qwen Coder', badge: 'CODE' },
-    { id: 'qwen/qwq-32b:free', label: 'QwQ-32B', badge: 'FREE' },
-  ],
+  ]
 };
 
 /* ─── MODEL COLOR MAP — dynamic avatar updates on swap ───────── */
 const MODEL_COLORS = {
-  'openai': { bg: 'linear-gradient(135deg, #10a37f, #0d8a6b)', icon: '⚡' },
-  'anthropic': { bg: 'linear-gradient(135deg, #d97757, #c16345)', icon: '🔶' },
-  'google': { bg: 'linear-gradient(135deg, #1a73e8, #8ab4f8)', icon: '✦' },
-  'x-ai': { bg: 'linear-gradient(135deg, #1a1a2e, #16213e)', icon: 'G' },
-  'deepseek': { bg: 'linear-gradient(135deg, #4a6cf7, #2b44c7)', icon: '🔍' },
-  'meta-llama': { bg: 'linear-gradient(135deg, #7c3aed, #a855f7)', icon: '🦙' },
-  'qwen': { bg: 'linear-gradient(135deg, #0ea5e9, #0284c7)', icon: '🌐' },
-  'mistralai': { bg: 'linear-gradient(135deg, #ff6b35, #e85d26)', icon: '🌊' },
-  'cohere': { bg: 'linear-gradient(135deg, #39d353, #22a06b)', icon: '🧬' },
-  'perplexity': { bg: 'linear-gradient(135deg, #20b2aa, #008b8b)', icon: '🔮' },
+  'openai': { bg: 'linear-gradient(135deg, #FFD700, #B8860B)', icon: '🧠' },
+  'anthropic': { bg: 'linear-gradient(135deg, #00BFFF, #00008B)', icon: '🌌' },
+  'google': { bg: 'linear-gradient(135deg, #FF4500, #8B0000)', icon: '👁️' },
+  'x-ai': { bg: 'linear-gradient(135deg, #8A2BE2, #4B0082)', icon: '⚡' },
 };
 
 /* ─── PROVIDER SVGS — dynamic official logos ─────────────────── */
@@ -208,13 +132,7 @@ const PROVIDER_SVGS = {
   'openai': `<img src="gpt_logo.png" style="width:100%; height:100%; object-fit:cover; transform: scale(1.48);" alt="ChatGPT">`,
   'anthropic': `<img src="claude_logo.png" style="width:100%; height:100%; object-fit:cover; transform: scale(1.48);" alt="Claude">`,
   'google': `<img src="gemini_logo.png" style="width:100%; height:100%; object-fit:cover; transform: scale(1.48);" alt="Gemini">`,
-  'x-ai': `<img src="grok_logo.png" style="width:100%; height:100%; object-fit:cover; transform: scale(1.48);" alt="Grok">`,
-  'meta-llama': `<svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></svg>`,
-  'mistralai': `<svg viewBox="0 0 24 24" width="28" height="28"><path fill="#F4E9E2" d="M17.143 3.429v3.428h-3.429v3.429h-3.428V6.857H6.857V3.43H3.43v13.714H0v3.428h10.286v-3.428H6.857v-3.429h3.429v3.429h3.429v-3.429h3.428v3.429h-3.428v3.428H24v-3.428h-3.43V3.429z"/></svg>`,
-  'deepseek': `<svg viewBox="0 0 377.1 277.86" width="30" height="30"><path fill="currentColor" d="M373.15,23.32c-4-1.95-5.72,1.77-8.06,3.66-.79.62-1.47,1.43-2.14,2.14-5.85,6.26-12.67,10.36-21.57,9.86-13.04-.71-24.16,3.38-33.99,13.37-2.09-12.31-9.04-19.66-19.6-24.38-5.54-2.45-11.13-4.9-14.99-10.23-2.71-3.78-3.44-8-4.81-12.16-.85-2.51-1.72-5.09-4.6-5.52-3.13-.5-4.36,2.14-5.58,4.34-4.93,8.99-6.82,18.92-6.65,28.97.43,22.58,9.97,40.56,28.89,53.37,2.16,1.46,2.71,2.95,2.03,5.09-1.29,4.4-2.82,8.68-4.19,13.09-.85,2.82-2.14,3.44-5.15,2.2-10.39-4.34-19.37-10.76-27.29-18.55-13.46-13.02-25.63-27.41-40.81-38.67-3.57-2.64-7.12-5.09-10.81-7.41-15.49-15.07,2.03-27.45,6.08-28.9,4.25-1.52,1.47-6.79-12.23-6.73-13.69.06-26.24,4.65-42.21,10.76-2.34.93-4.79,1.61-7.32,2.14-14.5-2.73-29.55-3.35-45.29-1.58-29.62,3.32-53.28,17.34-70.68,41.28C1.29,88.2-3.63,120.88,2.39,155c6.33,35.91,24.64,65.68,52.8,88.94,29.18,24.1,62.8,35.91,101.15,33.65,23.29-1.33,49.23-4.46,78.48-29.24,7.38,3.66,15.12,5.12,27.97,6.23,9.89.93,19.41-.5,26.79-2.02,11.55-2.45,10.75-13.15,6.58-15.13-33.87-15.78-26.44-9.36-33.2-14.54,17.21-20.41,43.15-41.59,53.3-110.19.79-5.46.11-8.87,0-13.3-.06-2.67.54-3.72,3.61-4.03,8.48-.96,16.72-3.29,24.28-7.47,21.94-12,30.78-31.69,32.87-55.33.31-3.6-.06-7.35-3.86-9.24ZM181.96,235.97c-32.83-25.83-48.74-34.33-55.31-33.96-6.14.34-5.04,7.38-3.69,11.97,1.41,4.53,3.26,7.66,5.85,11.63,1.78,2.64,3.01,6.57-1.78,9.49-10.57,6.58-28.95-2.2-29.82-2.64-21.38-12.59-39.26-29.24-51.87-52.01-12.16-21.92-19.23-45.43-20.39-70.52-.31-6.08,1.47-8.22,7.49-9.3,7.92-1.46,16.11-1.77,24.03-.62,33.49,4.9,62.01,19.91,85.9,43.63,13.65,13.55,23.97,29.71,34.61,45.49,11.3,16.78,23.48,32.75,38.97,45.84,5.46,4.59,9.83,8.09,14,10.67-12.59,1.4-33.62,1.71-47.99-9.68ZM197.69,134.65c0-2.7,2.15-4.84,4.87-4.84.6,0,1.16.12,1.66.31.67.25,1.29.62,1.77,1.18.87.84,1.36,2.08,1.36,3.35,0,2.7-2.15,4.84-4.85,4.84s-4.81-2.14-4.81-4.84ZM246.55,159.77c-3.13,1.27-6.26,2.39-9.27,2.51-4.67.22-9.77-1.68-12.55-4-4.3-3.6-7.36-5.61-8.67-11.94-.54-2.7-.23-6.85.25-9.24,1.12-5.15-.12-8.44-3.74-11.44-2.96-2.45-6.7-3.1-10.82-3.1-1.54,0-2.95-.68-4-1.24-1.72-.87-3.13-3.01-1.78-5.64.43-.84,2.53-2.92,3.02-3.29,5.58-3.19,12.03-2.14,18,.25,5.54,2.26,9.71,6.42,15.72,12.28,6.16,7.1,7.26,9.09,10.76,14.39,2.76,4.19,5.29,8.47,7.01,13.37,1.04,3.04-.31,5.55-3.94,7.1Z"/></svg>`,
-  'qwen': `<svg viewBox="27.55 17.52 147.28 145.51" width="30" height="30"><path d="M174.82 108.75L155.38 75L165.64 57.75C166.46 56.31 166.46 54.53 165.64 53.09L155.38 35.84C154.86 34.91 153.87 34.33 152.78 34.33H114.88L106.14 19.03C105.62 18.1 104.63 17.52 103.54 17.52H83.3C82.21 17.52 81.22 18.1 80.7 19.03L61.26 52.77H41.02C39.93 52.77 38.94 53.35 38.42 54.28L28.16 71.53C27.34 72.97 27.34 74.75 28.16 76.19L45.52 107.5L36.78 122.8C35.96 124.24 35.96 126.02 36.78 127.46L47.04 144.71C47.56 145.64 48.55 146.22 49.64 146.22H87.54L96.28 161.52C96.8 162.45 97.79 163.03 98.88 163.03H119.12C120.21 163.03 121.2 162.45 121.72 161.52L141.16 127.78H158.52C159.61 127.78 160.6 127.2 161.12 126.27L171.38 109.02C172.2 107.58 172.2 105.8 171.38 104.36L174.82 108.75Z" fill="#665CEE"/><path d="M119.12 163.03H98.88L87.54 144.71H49.64L61.26 126.39H80.7L38.42 55.29H61.26L83.3 19.03L93.56 37.35L83.3 55.29H161.58L151.32 72.54L170.76 106.28H151.32L141.16 88.34L101.18 163.03H119.12Z" fill="white"/><path d="M127.86 79.83H76.14L101.18 122.11L127.86 79.83Z" fill="#665CEE"/></svg>`,
-  'cohere': `<svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M8.048 8.163c0 1.932.658 3.293 1.975 4.084C11.337 13.038 13.2 13.43 15.48 13.43h.287c1.053 0 1.904.854 1.904 1.907v.256c0 1.053-.851 1.907-1.904 1.907h-.287c-3.36 0-6.12-.878-8.28-2.633C5.068 13.106 4 10.844 4 8.163V6.907C4 5.854 4.854 5 5.907 5h.234c1.053 0 1.907.854 1.907 1.907zm8.45 5.297a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>`,
-  'perplexity': `<svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 1L4 5v6.5L1.5 13v5L4 19.5V23l8-4 8 4v-3.5L22.5 18v-5L20 11.5V5zm0 2.24L18 6.5v4.74L12 14.5 6 11.24V6.5zm-6 9.52l5 2.74v4.74L6 17.5zm12 0v4.74l-5 2.74V15.5z"/></svg>`
+  'x-ai': `<img src="grok_logo.png" style="width:100%; height:100%; object-fit:cover; transform: scale(1.48);" alt="Grok">`
 };
 
 
@@ -367,160 +285,154 @@ let placeholderInterval;
 
 // Initialize
 function init() {
-  // Re-query these inside init() to guarantee DOM is ready
-  elements.clearChatBtn = document.getElementById('clear-chat-btn');
-  elements.randomTopicBtn = document.getElementById('random-topic-btn');
-  elements.stopBtn = document.getElementById('stop-btn');
-  elements.autopilotToggle = document.getElementById('autopilot-toggle');
-  elements.layoutToggle = document.getElementById('layout-toggle');
-  elements.oracleBtn = document.getElementById('oracle-btn');
+  // Re-query all elements inside init() to guarantee DOM is ready
+  elements.clearChatBtn     = document.getElementById('clear-chat-btn');
+  elements.randomTopicBtn   = document.getElementById('random-topic-btn');
+  elements.stopBtn          = document.getElementById('stop-btn');
+  elements.autopilotToggle  = document.getElementById('autopilot-toggle');
+  elements.layoutToggle     = document.getElementById('layout-toggle');
+  elements.oracleBtn        = document.getElementById('oracle-btn');
+  elements.settingsModal    = document.getElementById('settings-modal');
+  elements.saveSettingsBtn  = document.getElementById('save-settings-btn');
+  elements.closeModalBtn    = document.getElementById('close-modal-btn');
+  elements.apiKeyInput      = document.getElementById('api-key-input');
+  elements.webSearchToggle  = document.getElementById('flag-web-search');
 
-  elements.messageInput.addEventListener('input', handleTextareaResize);
-  elements.messageInput.addEventListener('keydown', handleKeyDown);
-  elements.sendBtn.addEventListener('click', sendMessage);
+  if (elements.messageInput) {
+    elements.messageInput.addEventListener('input', handleTextareaResize);
+    elements.messageInput.addEventListener('keydown', handleKeyDown);
+  }
+  if (elements.sendBtn) elements.sendBtn.addEventListener('click', sendMessage);
   if (elements.clearChatBtn) elements.clearChatBtn.addEventListener('click', clearChat);
-
-  // New Features
   if (elements.randomTopicBtn) elements.randomTopicBtn.addEventListener('click', startRandomTopic);
   if (elements.stopBtn) elements.stopBtn.addEventListener('click', stopGeneration);
+  if (elements.caContainer) elements.caContainer.addEventListener('click', copyCA);
 
-  if (elements.caContainer) {
-    elements.caContainer.addEventListener('click', copyCA);
-  }
-
-  elements.autopilotToggle.addEventListener('change', (e) => {
-    if (isGenerating) {
-      elements.stopBtn.style.display = e.target.checked ? 'flex' : 'none';
-    }
-  });
-
-  if (elements.oracleBtn) {
-    elements.oracleBtn.addEventListener('click', () => {
-      elements.messageInput.value = '';
-      if (elements.messageInput.placeholder === 'Paste Solana CA here...') {
-        // Switch back to normal mode
-        elements.messageInput.placeholder = 'Address the roundtable...';
-        elements.oracleBtn.classList.remove('active');
-        elements.oracleBtn.title = 'Oracle (Enter CA)';
-      } else {
-        // Switch to Oracle mode
-        elements.messageInput.placeholder = 'Paste Solana CA here...';
-        elements.oracleBtn.title = 'Cancel Oracle Mode';
-        elements.oracleBtn.classList.add('active', 'pulse');
-        setTimeout(() => elements.oracleBtn.classList.remove('pulse'), 500);
+  if (elements.autopilotToggle) {
+    elements.autopilotToggle.addEventListener('change', (e) => {
+      if (isGenerating && elements.stopBtn) {
+        elements.stopBtn.style.display = e.target.checked ? 'flex' : 'none';
       }
-      elements.messageInput.focus();
     });
   }
 
   if (elements.layoutToggle) {
     elements.layoutToggle.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        document.body.classList.add('grid-layout');
-        localStorage.setItem('grid_layout_enabled', 'true');
-      } else {
-        document.body.classList.remove('grid-layout');
-        localStorage.setItem('grid_layout_enabled', 'false');
-      }
+      document.body.classList.toggle('grid-layout', e.target.checked);
+      localStorage.setItem('grid_layout_enabled', e.target.checked ? 'true' : 'false');
     });
-
-    // Initial load: Force circular table (Grid View OFF)
     elements.layoutToggle.checked = false;
     document.body.classList.remove('grid-layout');
     localStorage.setItem('grid_layout_enabled', 'false');
   }
 
-  // Mobile Transcript Toggle
-  if (elements.mobileTranscriptBtn && elements.closeTranscriptBtn && elements.sidebar) {
-    elements.mobileTranscriptBtn.addEventListener('click', () => {
-      elements.sidebar.classList.add('open-mobile');
-    });
-    elements.closeTranscriptBtn.addEventListener('click', () => {
-      elements.sidebar.classList.remove('open-mobile');
+  // Settings modal — wire from both top-bar #settings-btn and sidebar #nav-settings-btn
+  document.querySelectorAll('#settings-btn, #nav-settings-btn').forEach(btn => {
+    if (btn) btn.addEventListener('click', openSettings);
+  });
+  // Close modal
+  if (elements.closeModalBtn) elements.closeModalBtn.addEventListener('click', closeSettings);
+  if (elements.saveSettingsBtn) elements.saveSettingsBtn.addEventListener('click', saveSettings);
+  if (elements.settingsModal) {
+    elements.settingsModal.addEventListener('click', (e) => {
+      if (e.target === elements.settingsModal) closeSettings();
     });
   }
-
-  // Settings modal
-  elements.settingsBtn.addEventListener('click', openSettings);
-  elements.closeModalBtn.addEventListener('click', closeSettings);
-  elements.saveSettingsBtn.addEventListener('click', saveSettings);
-  elements.settingsModal.addEventListener('click', (e) => {
-    if (e.target === elements.settingsModal) closeSettings();
-  });
 
   if (elements.webSearchToggle) elements.webSearchToggle.checked = webSearchEnabled;
-
-  const seatSelect = document.getElementById('seat-count-select');
-  if (seatSelect) {
-    seatSelect.value = SESSION.seatCount.toString();
-  }
 
   // Initial seat render
   renderSeats();
 }
 
 function renderSeats() {
-  const container = document.getElementById('roundtable-wrapper');
+  const container = document.getElementById('bots-list');
   if (!container) return;
 
-  // Remove existing seats
-  container.querySelectorAll('.ai-seat').forEach(el => el.remove());
-
+  container.innerHTML = '';
   AGENT_ORDER = AGENT_ORDER_FULL.slice(0, SESSION.seatCount);
-  const count = AGENT_ORDER.length;
 
-  // Render seats around circle
-  AGENT_ORDER.forEach((seatKey, index) => {
-    // Math to position evenly on circle starting from top
-    // Top is -90 degrees (or -PI/2)
-    const angle = -Math.PI / 2 + (index * (2 * Math.PI) / count);
+  // Using .png logos — pre-cropped circular assets.
+  // CSS filter chain colorizes each logo to its exact stone color.
+  const stoneInfo = {
+    chatgpt: {
+      stone: 'MIND STONE',
+      desc: 'Strategy & chart pattern recognition',
+      logo: 'gpt_logo.png',
+      color: 'var(--mind)',
+      glow:  'rgba(255,215,0,0.3)',
+      // tint to gold/yellow
+      filter: 'sepia(1) saturate(2.5) hue-rotate(5deg) brightness(1.2) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
+    },
+    claude: {
+      stone: 'SPACE STONE',
+      desc: 'Logical depth & market nuance',
+      logo: 'claude_logo.png',
+      color: 'var(--space)',
+      glow:  'rgba(0,191,255,0.3)',
+      // tint to cyan/blue
+      filter: 'sepia(1) saturate(2.5) hue-rotate(175deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
+    },
+    gemini: {
+      stone: 'REALITY STONE',
+      desc: 'Real-world data & sentiment analysis',
+      logo: 'gemini_logo.png',
+      color: 'var(--reality)',
+      glow:  'rgba(255,69,0,0.3)',
+      // tint to red/orange
+      filter: 'sepia(1) saturate(3) hue-rotate(320deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
+    },
+    grok: {
+      stone: 'POWER STONE',
+      desc: 'Raw power & contrarian conviction',
+      logo: 'grok_logo.png',
+      color: 'var(--power)',
+      glow:  'rgba(138,43,226,0.3)',
+      // tint to purple/violet
+      filter: 'sepia(1) saturate(4) hue-rotate(240deg) brightness(0.9) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
+    },
+  };
 
-    // We want the seats to sit on an ellipse/circle.
-    // Coordinates usually go from 0 to 100% where 50% is center.
-    // For 4 seats, a cross pattern is best: top, right, bottom, left.
-    // For 8 seats, an octagon pattern.
-    // Let's adjust the radius for X and Y since the tabletop is likely an ellipse.
-    const radiusX = 42;
-    const radiusY = 38;
-    const left = 50 + radiusX * Math.cos(angle);
-    const top = 50 + radiusY * Math.sin(angle);
+  AGENT_ORDER.forEach((seatKey) => {
+    const ai   = AI_MODELS[seatKey];
+    const info = stoneInfo[seatKey] || { stone: seatKey, desc: '', logo: '', color: '#aaa', glow: 'transparent', filter: 'none' };
 
-    // Determine bubble placement direction based on angle
-    const deg = (angle * 180 / Math.PI + 360) % 360; // 0 is right, 90 is bottom, 180 is left, 270 is top
-    let bubbleClass = 'bubble-top';
-    if (deg >= 45 && deg < 135) bubbleClass = 'bubble-bottom';
-    else if (deg >= 135 && deg < 225) bubbleClass = 'bubble-left';
-    else if (deg >= 225 && deg < 315) bubbleClass = 'bubble-top';
-    else bubbleClass = 'bubble-right';
-
-    const ai = AI_MODELS[seatKey];
-    let provider = ai.model_id.split('/')[0];
-
-    // Normalize provider name for SVGs
-    if (provider === 'meta-llama') provider = 'meta-llama';
-    if (provider === 'mistralai') provider = 'mistralai';
-    if (provider === 'qwen') provider = 'qwen';
-    if (provider === 'deepseek') provider = 'deepseek';
-    const svg = PROVIDER_SVGS[provider] || `<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" fill="currentColor"/></svg>`;
-    const bg = MODEL_COLORS[provider]?.bg || '#444';
-
-    // Default label is first model's label
-    const defaultModel = SEAT_MODELS[seatKey][0];
-
-    const seatHTML = `
-      <div class="ai-seat" id="seat-${seatKey}" style="top: ${top}%; left: ${left}%; transform: translate(-50%, -50%);">
-          <div class="avatar ${seatKey}">
-              ${svg}
-          </div>
-          <div class="ai-badge seat-clickable" title="Click to swap model" onclick="toggleSeatMenu('${seatKey}', this)"><span id="name-${seatKey}">${ai.name}</span> <small id="badge-${seatKey}">${defaultModel.label}</small></div>
-          <div class="status-indicator"></div>
-          <div class="speech-bubble ${bubbleClass}" id="bubble-${seatKey}">
-              <div class="bubble-content"></div>
-          </div>
+    const cardHTML = `
+      <div class="bot-card ai-seat ${seatKey}" id="seat-${seatKey}">
+        <div class="stone-avatar" style="
+            background: radial-gradient(circle at 35% 35%, ${info.glow}, rgba(0,0,0,0.6));
+            border: 1.5px solid ${info.color};
+            box-shadow: 0 0 10px ${info.glow};">
+          <img src="${info.logo}" alt="${ai.name}"
+            style="width:100%; height:100%; border-radius:50%; object-fit:cover; transform:scale(1.48); filter:${info.filter};"
+          >
+        </div>
+        <div class="bot-card-info">
+          <div class="bot-card-name">${ai.name}</div>
+          <div class="bot-card-desc">${info.desc}</div>
+          <div class="bot-card-stone-tag" style="color:${info.color};">${info.stone}</div>
+        </div>
+        <div class="bot-card-badge" id="badge-${seatKey}" style="background:${info.color};"></div>
       </div>
     `;
-    container.insertAdjacentHTML('beforeend', seatHTML);
+    container.insertAdjacentHTML('beforeend', cardHTML);
   });
+
+  // Populate the council status grid in the right panel
+  const grid = document.getElementById('council-status-grid');
+  if (grid) {
+    grid.innerHTML = '';
+    AGENT_ORDER.forEach(key => {
+      const info = stoneInfo[key] || { stone: key, color: '#aaa' };
+      const ai = AI_MODELS[key];
+      grid.insertAdjacentHTML('beforeend', `
+        <div class="council-row" id="status-row-${key}">
+          <div class="council-row-dot" style="background:${info.color};"></div>
+          <span style="flex:1;">${ai.name}</span>
+          <span style="color:${info.color};font-size:0.65rem;font-weight:700;letter-spacing:0.5px;">${info.stone}</span>
+        </div>`);
+    });
+  }
 }
 
 function copyCA() {
@@ -556,29 +468,34 @@ function handleKeyDown(e) {
 }
 
 function openSettings() {
-  // Populate feature checkboxes from current FLAGS
-  const map = {
+  // Always re-query the modal live to avoid stale references
+  const modal = document.getElementById('settings-modal');
+  if (!modal) return;
+
+  // Populate any checkboxes if present
+  const flagMap = {
     'flag-voice-tts': 'voiceTTS',
     'flag-voice-stt': 'voiceSTT',
     'flag-vision': 'vision',
   };
-  for (const [id, key] of Object.entries(map)) {
+  for (const [id, key] of Object.entries(flagMap)) {
     const el = document.getElementById(id);
     if (el) el.checked = FLAGS[key];
   }
-  // Provider dropdown
+  // Provider dropdown if present
   const provSelect = document.getElementById('provider-select');
   if (provSelect) {
     provSelect.value = SESSION.provider;
-    updateProviderUI(SESSION.provider);
-    provSelect.onchange = () => updateProviderUI(provSelect.value);
+    if (typeof updateProviderUI === 'function') updateProviderUI(SESSION.provider);
+    provSelect.onchange = () => { if (typeof updateProviderUI === 'function') updateProviderUI(provSelect.value); };
   }
-  // Don't show the API key once it's set in memory
-  if (SESSION.apiKey) {
-    elements.apiKeyInput.placeholder = '••••••••••••••••  (saved)';
+  // Mask API key if already set
+  const keyInput = document.getElementById('api-key-input');
+  if (keyInput && SESSION.apiKey) {
+    keyInput.placeholder = '••••••••••••••••  (saved)';
   }
 
-  elements.settingsModal.classList.remove('hidden');
+  modal.classList.remove('hidden');
 }
 
 function updateProviderUI(provider) {
@@ -610,11 +527,14 @@ function closeSettings() {
 
 function saveSettings() {
   /* API key — memory only, never localStorage */
-  const key = elements.apiKeyInput.value.trim();
+  const keyInputEl = document.getElementById('api-key-input');
+  const key = keyInputEl ? keyInputEl.value.trim() : '';
   if (key) {
     SESSION.apiKey = key;
-    elements.apiKeyInput.value = '';
-    elements.apiKeyInput.placeholder = '••••••••••••••••  (saved)';
+    if (keyInputEl) {
+      keyInputEl.value = '';
+      keyInputEl.placeholder = '••••••••••••••••  (saved)';
+    }
   }
 
   /* Provider — locked to OpenRouter */
@@ -622,8 +542,10 @@ function saveSettings() {
   const customUrl = document.getElementById('custom-url-input');
   if (customUrl) SESSION.customUrl = customUrl.value.trim();
 
-  if (elements.webSearchToggle) {
-    webSearchEnabled = elements.webSearchToggle.checked;
+  /* Web search toggle — live-query the checkbox */
+  const wsToggle = document.getElementById('flag-web-search');
+  if (wsToggle) {
+    webSearchEnabled = wsToggle.checked;
     localStorage.setItem('web_search_enabled', webSearchEnabled);
   }
 
@@ -721,34 +643,56 @@ function startRandomTopic() {
 // Transcript Logic
 function appendToTranscript(role, text, modelKey = null, opts = {}) {
   let html = '';
-  let parsedText = marked.parseInline(text);
+  let parsedText = '';
+  try { parsedText = marked.parse(text); } catch(e) { parsedText = text; }
   if (typeof highlightMentions === 'function') parsedText = highlightMentions(parsedText);
 
-  const copyBtnHtml = `<button class="msg-copy-btn" onclick="copyTranscriptMsg(this, \`${text.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`)" title="Copy message"><i class="fa-regular fa-copy"></i></button>`;
-
-  const timeBadge = opts.elapsed ? `<span class="resp-time">${(opts.elapsed / 1000).toFixed(1)}s</span>` : '';
+  const now = new Date();
+  const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  const timeBadge = opts.elapsed ? `<span class="resp-time">(${(opts.elapsed/1000).toFixed(1)}s)</span>` : '';
 
   if (role === 'system') {
     html = `<div class="transcript-msg system">${text}</div>`;
   } else if (role === 'user') {
-    html = `<div class="transcript-msg user" onclick="this.classList.toggle('expanded')">${copyBtnHtml}<strong>You</strong> ${text}</div>`;
+    html = `
+      <div class="transcript-msg user">
+        <div class="msg-header">
+          <span class="msg-sender" style="color:var(--text-2);">YOU</span>
+          <span class="msg-time">${timeStr}</span>
+        </div>
+        <div class="msg-body">${text}</div>
+      </div>`;
   } else if (role === 'consensus') {
-    html = `<div class="transcript-msg consensus" onclick="this.classList.toggle('expanded')">${copyBtnHtml}<strong>⚖ Consensus</strong><br>${parsedText}</div>`;
+    html = `
+      <div class="transcript-msg consensus">
+        <div class="msg-header"><span class="msg-sender" style="color:#818cf8;">⚖ CONSENSUS</span></div>
+        <div class="msg-body">${parsedText}</div>
+      </div>`;
   } else if (role === 'research') {
     const aiName = AI_MODELS[modelKey]?.name || modelKey;
-    html = `<div class="transcript-msg research" onclick="this.classList.toggle('expanded')">${copyBtnHtml}<strong>🔍 ${aiName} (Research)</strong>${timeBadge} ${parsedText}</div>`;
+    html = `
+      <div class="transcript-msg research ${modelKey}">
+        <div class="msg-header">
+          <span class="msg-sender">🔍 ${aiName}</span>
+          <span class="msg-time">${timeStr} ${timeBadge}</span>
+        </div>
+        <div class="msg-body">${parsedText}</div>
+      </div>`;
   } else {
     const aiName = AI_MODELS[modelKey]?.name || String(modelKey).toUpperCase();
     const msgId = `msg-${++msgIdCounter}`;
-    messageReactions.set(msgId, { up: 0, down: 0 });
-    html = `<div class="transcript-msg ${modelKey}" onclick="this.classList.toggle('expanded')" id="${msgId}">${copyBtnHtml}<strong>${aiName}</strong>${timeBadge} ${parsedText}<div class="react-bar"><button class="react-btn" onclick="event.stopPropagation();reactToMsg('${msgId}','up',this)">👍 <span>0</span></button><button class="react-btn" onclick="event.stopPropagation();reactToMsg('${msgId}','down',this)">👎 <span>0</span></button></div></div>`;
+    html = `
+      <div class="transcript-msg ${modelKey}" id="${msgId}">
+        <div class="msg-header">
+          <span class="msg-sender">${aiName}</span>
+          <span class="msg-time">${timeStr} ${timeBadge}</span>
+        </div>
+        <div class="msg-body">${parsedText}</div>
+      </div>`;
   }
 
-  // Hide the welcome screen the first time any message is appended
-  // Use querySelector fallback in case the id gets stripped by remote commits
-  const welcome = document.getElementById('transcript-welcome') ||
-    document.querySelector('#transcript-container .transcript-msg.system');
-  if (welcome) welcome.style.display = 'none';
+  const welcome = document.querySelector('#transcript-container .transcript-msg.system');
+  if (welcome && welcome.textContent.includes('Awaiting Oracle')) welcome.style.display = 'none';
 
   elements.transcriptContainer.insertAdjacentHTML('beforeend', html);
   elements.transcriptContainer.scrollTo({ top: elements.transcriptContainer.scrollHeight, behavior: 'smooth' });
@@ -787,53 +731,18 @@ function hideAllBubbles() {
 
 function showBubble(modelKey, content) {
   hideAllBubbles();
-
   const seat = document.getElementById(`seat-${modelKey}`);
-  const bubble = document.getElementById(`bubble-${modelKey}`);
-  const bubbleContent = bubble.querySelector('.bubble-content');
-
-  seat.classList.add('speaking');
-
-  let htmlContent = marked.parseInline(content);
-  if (typeof highlightMentions === 'function') htmlContent = highlightMentions(htmlContent);
-  bubbleContent.innerHTML = htmlContent;
-
-  bubble.classList.add('visible');
-
-  // Auto-scroll bubble content to top just in case
-  bubbleContent.scrollTop = 0;
-
-  // Mobile Auto-scroll: Ensure the roundtable area scrolls down to the active speaker
-  if (window.innerWidth <= 768) {
-    const roundtableArea = document.querySelector('.roundtable-area');
-    if (roundtableArea) {
-      // Scroll so the active bubble is pushed into view
-      setTimeout(() => {
-        roundtableArea.scrollTo({
-          top: roundtableArea.scrollHeight,
-          behavior: 'smooth'
-        });
-      }, 100);
-    }
-  }
+  if (seat) seat.classList.add('speaking');
 }
 
 function setTypingStatus(modelKey, isTyping) {
   const seat = document.getElementById(`seat-${modelKey}`);
-  const bubble = document.getElementById(`bubble-${modelKey}`);
   if (!seat) return;
   if (isTyping) {
     seat.classList.add('typing');
-    // Show animated dots in the speech bubble while waiting
-    if (bubble) {
-      const bc = bubble.querySelector('.bubble-content');
-      if (bc) bc.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-      bubble.classList.add('visible');
-      seat.classList.add('speaking');
-    }
+    seat.classList.add('speaking');
   } else {
     seat.classList.remove('typing');
-    // bubble content will be replaced by showBubble() call
   }
 }
 
@@ -919,16 +828,21 @@ async function sendMessage() {
           <iframe width="100%" height="100%" src="https://dexscreener.com/solana/${extractedCa}?embed=1&theme=dark&trades=0&info=0" frameborder="0"></iframe>
         </div>`;
 
-        // Build a rich status message showing what was fetched
         let statusMsg = `✅ <strong>Oracle Loaded:</strong> $${tokenData.symbol} | MC: $${tokenData.marketCap} | Liq: $${tokenData.liquidity}`;
         if (loreData?.description) {
           statusMsg += `<br><em style="opacity:0.7;font-size:0.8em;">📖 Lore: "${loreData.description.slice(0, 120)}${loreData.description.length > 120 ? '...' : ''}"</em>`;
         }
         if (loreData?.twitter) statusMsg += ` | <a href="${loreData.twitter}" target="_blank" style="color:var(--accent)">🐦 Twitter</a>`;
         if (loreData?.telegram) statusMsg += ` | <a href="${loreData.telegram}" target="_blank" style="color:var(--accent)">📢 Telegram</a>`;
-        statusMsg += chartIframe;
-
-        appendToTranscript('system', statusMsg);
+        
+        const intelPane = document.getElementById('market-intel-pane');
+        if (intelPane) {
+            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">${statusMsg}</div>` + chartIframe;
+            appendToTranscript('system', `Pump.fun Oracle data routed to Market Intelligence panel.`);
+        } else {
+            statusMsg += chartIframe;
+            appendToTranscript('system', statusMsg);
+        }
       } else {
         appendToTranscript('system', `❌ <strong>Oracle Error:</strong> No active liquidity pool found on DexScreener for that address. Proceeding with standard analysis.`);
       }
@@ -937,8 +851,12 @@ async function sendMessage() {
 
   // Mode 2: TradFi / Crypto (TradingView Integration)
   else if (currentOracleMode === 'tradfi') {
-    // Assume the input is a ticker like AAPL or BTCUSD
-    const ticker = cleanedContent.split(' ')[0].toUpperCase().replace(/[^A-Z0-9]/g, '');
+    // Extract ticker from sentence (prioritize $ prefixed, all-caps, or fallback to last word)
+    const words = cleanedContent.split(/[\s,!?]+/);
+    let extracted = words.find(w => w.startsWith('$')) || 
+                    words.find(w => /^[A-Z0-9]{2,10}$/.test(w)) || 
+                    words[words.length - 1];
+    const ticker = (extracted || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (ticker) {
       appendToTranscript('system', `📈 <strong>Oracle Detected Ticker:</strong> Preparing TradingView chart for <code>${ticker}</code>...`);
 
@@ -952,13 +870,24 @@ async function sendMessage() {
         <iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=${ticker}&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>
       </div>`;
 
-      appendToTranscript('system', `✅ <strong>Chart Secured:</strong> TradingView Interactive Data for ${ticker} ${tvIframe}`);
+      const intelPane = document.getElementById('market-intel-pane');
+      if (intelPane) {
+          intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Chart Secured:</strong> TradingView Interactive Data for ${ticker}</div>` + tvIframe;
+          appendToTranscript('system', `TradFi Oracle data routed to Market Intelligence panel.`);
+      } else {
+          appendToTranscript('system', `✅ <strong>Chart Secured:</strong> TradingView Interactive Data for ${ticker} ${tvIframe}`);
+      }
     }
   }
 
   // Mode 3: Perps / Funding (Coinglass Advanced Crypto)
   else if (currentOracleMode === 'perps') {
-    const ticker = cleanedContent.split(' ')[0].toUpperCase().replace(/[^A-Z0-9]/g, '');
+    // Extract ticker from sentence (prioritize $ prefixed, all-caps, or fallback to last word)
+    const words = cleanedContent.split(/[\s,!?]+/);
+    let extracted = words.find(w => w.startsWith('$')) || 
+                    words.find(w => /^[A-Z0-9]{2,10}$/.test(w)) || 
+                    words[words.length - 1];
+    const ticker = (extracted || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (ticker) {
       appendToTranscript('system', `🔥 <strong>Oracle Detected Perps Play:</strong> Fetching liquidation zones and funding data for <code>${ticker}</code>...`);
 
@@ -971,10 +900,16 @@ async function sendMessage() {
 
       // Use a generic crypto chart focused on the perpetuals vibe for now
       const perpIframe = `<div style="margin-top: 15px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">
-        <iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:${ticker}USDT.P&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=Volume%40tv-basicstudies&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>
+        <iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:${ticker}USDTPERP&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=Volume%40tv-basicstudies&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>
       </div>`;
 
-      appendToTranscript('system', `✅ <strong>Derivatives Chart Secured:</strong> 15m Binance ${ticker} Perpetuals ${perpIframe}`);
+      const intelPane = document.getElementById('market-intel-pane');
+      if (intelPane) {
+          intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Derivatives Chart Secured:</strong> 15m Binance ${ticker} Perpetuals</div>` + perpIframe;
+          appendToTranscript('system', `Perps Oracle data routed to Market Intelligence panel.`);
+      } else {
+          appendToTranscript('system', `✅ <strong>Derivatives Chart Secured:</strong> 15m Binance ${ticker} Perpetuals ${perpIframe}`);
+      }
     }
   }
 
@@ -1226,7 +1161,7 @@ async function fetchAIResponse(modelKey, history) {
   }
 
   const timeContext = `\n\n[SYSTEM CLOCK: The current date and time is ${new Date().toLocaleString()}. You are operating in real-time. Do not say you are an AI without access to the current date.]`;
-  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'LLM4' — a multi-agent AI debate platform. If the user or other bots mention LLM4, they are talking about this platform.]` +
+  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Infinity Council' — a multi-AI trading terminal where ChatGPT, Claude, Gemini and Grok debate every market signal together. When the user submits a CA or ticker, all four AIs analyse it simultaneously.]` +
     `\n\n[PUMP.FUN & SOLANA MEMECOIN KNOWLEDGE — READ THIS CAREFULLY]:\n` +
     `Pump.fun is a Solana-based memecoin launchpad. Any wallet can deploy a token in seconds with zero technical knowledge. Here is everything you need to know to reason about these coins like an expert:\n\n` +
     `TOKENOMICS AND MECHANICS:\n` +
@@ -1315,12 +1250,19 @@ async function fetchAIResponse(modelKey, history) {
   }
 
   const payload = {
-    model: finalModelId, max_tokens: 200, messages,
+    model: finalModelId,
+    max_tokens: 500,
+    temperature: 0.85,
+    messages,
   };
 
   if (webSearchEnabled && (SESSION.provider === 'openrouter' || !SESSION.provider)) {
     payload.plugins = [{ id: 'web' }];
   }
+  // Ensure temperature and top_p are sensible for Oracle mode context
+  if (currentOracleMode === 'pump') payload.temperature = 0.9;
+  if (currentOracleMode === 'tradfi') payload.temperature = 0.7;
+  if (currentOracleMode === 'perps') payload.temperature = 0.8;
 
   // Dynamic local endpoint based on selected provider
   let endpoint = 'https://openrouter.ai/api/v1/chat/completions';
@@ -1343,7 +1285,7 @@ async function fetchAIResponse(modelKey, history) {
     headers: {
       'Authorization': `Bearer ${SESSION.apiKey}`,
       'HTTP-Referer': window.location.href,
-      'X-Title': 'LLM4 Roundtable',
+      'X-Title': 'Infinity Council',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
@@ -1602,27 +1544,34 @@ function lockControls(locked) {
    CLEAR CHAT
    ════════════════════════════════════════════════════════════════ */
 function clearChat() {
-  if (!confirm('Clear the table and start over?')) return;
-  // Stop any running debate first
+  if (!confirm('Clear the stream and start over?')) return;
   shouldStop = true; isPaused = false;
   isGenerating = false;
   if (placeholderInterval) { clearInterval(placeholderInterval); placeholderInterval = null; }
-  elements.autopilotToggle.checked = false;
-  elements.stopBtn.style.display = 'none';
+  if (elements.autopilotToggle) elements.autopilotToggle.checked = false;
+  const stopBtn = document.getElementById('stop-btn');
+  if (stopBtn) stopBtn.style.display = 'none';
   const pauseBtn = document.getElementById('pause-btn');
   if (pauseBtn) pauseBtn.style.display = 'none';
-  elements.sendBtn.disabled = false;
-  elements.messageInput.disabled = false;
-  elements.messageInput.placeholder = 'Address the roundtable...';
-  lockControls(false);
+  if (elements.sendBtn) elements.sendBtn.disabled = false;
+  if (elements.messageInput) {
+    elements.messageInput.disabled = false;
+    elements.messageInput.placeholder = 'Send signal to COUNCIL...';
+  }
+  if (typeof lockControls === 'function') lockControls(false);
 
   chatHistory = []; roundNumber = 0; pendingImage = null;
-  msgIdCounter = 0; messageReactions.clear();
-  hideAllBubbles(); hideConsensus();
+  msgIdCounter = 0;
+  if (messageReactions) messageReactions.clear();
+  if (typeof hideAllBubbles === 'function') hideAllBubbles();
+  if (typeof hideConsensus === 'function') hideConsensus();
   if (typeof Vision !== 'undefined') Vision.clear();
-  updateRoundCounter();
-  elements.transcriptContainer.innerHTML =
-    `<div class="transcript-msg system"><em>Discussion cleared. The table is yours.</em></div>`;
+  if (typeof updateRoundCounter === 'function') updateRoundCounter();
+
+  if (elements.transcriptContainer) {
+    elements.transcriptContainer.innerHTML =
+      `<div class="transcript-msg system"><em>Stream cleared. Awaiting Oracle signal...</em></div>`;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2025,67 +1974,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (visionInput) visionInput.addEventListener('change', e => Vision.handleFile(e.target));
   if (visionClear) visionClear.addEventListener('click', () => Vision.clear());
 
-  /* Oracle Mode Selection Logic */
-  const oracleBtn = document.getElementById('oracle-btn');
-  const oracleMenu = document.getElementById('oracle-menu');
-  const oracleIcon = document.getElementById('oracle-icon');
+  /* Oracle Mode Selection Logic — new layout has oracle deck always visible.
+     We only update currentOracleMode state here; the inline script in app.html
+     handles the active class toggling and UI label updates. */
+  const oracleOptions = document.querySelectorAll('.oracle-option');
+  oracleOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      currentOracleMode = opt.dataset.mode || 'pump';
 
-  if (oracleBtn && oracleMenu) {
-    oracleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      oracleMenu.style.display = oracleMenu.style.display === 'flex' ? 'none' : 'flex';
-      oracleBtn.classList.toggle('active');
-    });
-
-    const oracleOptions = document.querySelectorAll('.oracle-option');
-    oracleOptions.forEach(opt => {
-      opt.addEventListener('click', (e) => {
-        e.stopPropagation();
-
-        // Update active class
-        oracleOptions.forEach(o => {
-          o.classList.remove('active');
-          o.style.color = 'var(--text-secondary)';
-        });
-        opt.classList.add('active');
-        opt.style.color = 'var(--text-primary)';
-
-        // Update state and UI
-        currentOracleMode = opt.dataset.mode;
-
-        if (currentOracleMode === 'normal') {
-          oracleIcon.className = 'fa-solid fa-comments';
-          oracleBtn.title = 'Oracle (click to switch mode)';
-          elements.messageInput.placeholder = 'Address the roundtable...';
-        } else if (currentOracleMode === 'pump') {
-          oracleIcon.className = 'fa-solid fa-pills';
-          oracleBtn.title = 'Oracle Mode: Pump.fun (CA)';
-          elements.messageInput.placeholder = 'Paste Solana CA...';
-        } else if (currentOracleMode === 'tradfi') {
-          oracleIcon.className = 'fa-solid fa-chart-line';
-          oracleBtn.title = 'Oracle Mode: TradFi (Ticker)';
-          elements.messageInput.placeholder = 'Enter TradFi Ticker (e.g. AAPL, SPY, GOLD)...';
-        } else if (currentOracleMode === 'perps') {
-          oracleIcon.className = 'fa-solid fa-fire';
-          oracleBtn.title = 'Oracle Mode: Perps (Funding)';
-          elements.messageInput.placeholder = 'Enter Crypto Ticker (e.g. BTC, SOL, DOGE)...';
-        }
-
-        // Close menu
-        oracleMenu.style.display = 'none';
-        oracleBtn.classList.add('active'); // Keep the pill looking active to show a mode is selected
-        setTimeout(() => oracleBtn.classList.remove('active'), 1500);
-      });
-    });
-
-    // Close oracle menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!oracleBtn.contains(e.target) && !oracleMenu.contains(e.target)) {
-        oracleMenu.style.display = 'none';
-        oracleBtn.classList.remove('active');
+      // Sync placeholder text
+      const placeholders = {
+        pump:   'Paste Solana CA here…',
+        tradfi: 'Enter ticker (e.g. BTCUSD)…',
+        perps:  'Enter perp ticker (e.g. ETH)…',
+      };
+      if (elements.messageInput) {
+        elements.messageInput.placeholder = placeholders[currentOracleMode] || 'Send signal…';
       }
     });
-  }
+  });
+
 
   /* Debate mode selector */
   const modeBtns = document.querySelectorAll('.mode-btn');
@@ -2300,5 +2208,50 @@ function triggerSentienceGlitch() {
     setTimeout(() => { location.reload(); }, 3000);
   }, 10000);
 }
+
+/* ─── LIVE PRICE TICKER — BTC / SOL / ETH via CoinGecko ─── */
+async function fetchLivePrices() {
+  try {
+    const res = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,solana,ethereum&vs_currencies=usd&include_24hr_change=true'
+    );
+    if (!res.ok) return;
+    const d = await res.json();
+
+    const fmt  = (n) => n >= 1000 ? `$${Math.round(n).toLocaleString()}` : `$${n.toFixed(2)}`;
+    const fmtC = (n) => (n >= 0 ? `+${n.toFixed(2)}%` : `${n.toFixed(2)}%`);
+
+    const setCell = (id, val, cls) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = val;
+      if (cls) el.className = cls;
+    };
+
+    if (d.bitcoin) {
+      setCell('btc-price', fmt(d.bitcoin.usd));
+      const c = d.bitcoin.usd_24h_change || 0;
+      setCell('btc-change', fmtC(c), c >= 0 ? 'up' : 'dn');
+    }
+    if (d.solana) {
+      setCell('sol-price', fmt(d.solana.usd));
+      const c = d.solana.usd_24h_change || 0;
+      setCell('sol-change', fmtC(c), c >= 0 ? 'up' : 'dn');
+    }
+    if (d.ethereum) {
+      setCell('eth-price', fmt(d.ethereum.usd));
+      const c = d.ethereum.usd_24h_change || 0;
+      setCell('eth-change', fmtC(c), c >= 0 ? 'up' : 'dn');
+    }
+  } catch (err) {
+    // Silent fail — don't disrupt UI for a price fetch error
+    console.warn('[LivePrices] fetch failed:', err.message);
+  }
+}
+
+// Bootstrap price polling on page load
+fetchLivePrices();
+setInterval(fetchLivePrices, 30000);
+
 
 

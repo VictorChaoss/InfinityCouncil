@@ -55,7 +55,7 @@
 // ─── RATE LIMIT CONFIG (dev can change these) ─────────────────
 const ENABLE_RATE_LIMIT = true;      // Set to false to completely turn off IP limiting
 const MAX_REQUESTS_PER_HOUR = 200;   // Increased from 20 (approx 50 debates/hr)
-const MAX_TOKENS_PER_REQUEST = 300;  // max tokens per API call
+const MAX_TOKENS_PER_REQUEST = 800;  // max tokens per API call
 const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour window
 
 // ─── IN-MEMORY RATE LIMIT STORE ───────────────────────────────
@@ -89,8 +89,8 @@ const PROVIDER_CONFIG = {
     keyEnv: 'OPENROUTER_API_KEY',
     defaultModel: 'meta-llama/llama-4-maverick:free',
     extraHeaders: {
-      'HTTP-Referer': 'https://llm4.xyz',
-      'X-Title': 'LLM4 Roundtable',
+      'HTTP-Referer': 'https://infinity-council.vercel.app',
+      'X-Title': 'Infinity Council',
     },
   },
   ollama: {
@@ -152,9 +152,7 @@ const PROVIDER_CONFIG = {
 
 // ─── ALLOWED ORIGINS (CORS) ────────────────────────────────────
 const ALLOWED_ORIGINS = [
-  'https://llm4.xyz',
-  'https://www.llm4.xyz',
-  'https://llm-4-roundtable.vercel.app',
+  'https://infinity-council.vercel.app',
   'http://localhost',
   'http://127.0.0.1',
 ];

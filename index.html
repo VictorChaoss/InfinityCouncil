@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Council – Multi-AI Trading Terminal</title>
+    <meta name="description" content="Four AI minds. One decision. The Infinity Council brings ChatGPT, Claude, Gemini and Grok together to analyse any token, chart or market in real-time.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --mind:    #FFD700;
+            --space:   #00BFFF;
+            --reality: #FF4500;
+            --power:   #9B30FF;
+            --bg-dark: #0a0a14;
+            --panel:   #151522;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ── ANIMATED ORB BG ── */
+        .orbs {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(120px); opacity: 0.08;
+            animation: drift var(--d,28s) ease-in-out infinite alternate;
+        }
+        .orb-1 { width:600px;height:600px; background:var(--power); top:-160px; left:-160px; --d:32s; }
+        .orb-2 { width:500px;height:500px; background:var(--mind);  top:20%; right:-120px; --d:24s; }
+        .orb-3 { width:400px;height:400px; background:var(--space); bottom:0; left:30%; --d:20s; }
+        @keyframes drift {
+            from { transform: translate(0,0) scale(1); }
+            to   { transform: translate(40px, 60px) scale(1.1); }
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top:0; left:0; right:0; z-index:100;
+            height:60px;
+            display:flex; align-items:center; padding:0 3rem;
+            background: rgba(10,10,20,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-brand {
+            display:flex; align-items:center; gap:0.65rem;
+        }
+        .nav-brand i { color:var(--power); font-size:1.2rem; }
+        .nav-brand-name { font-size:0.85rem; font-weight:800; letter-spacing:3px; color:#fff; }
+        .nav-right { margin-left:auto; display:flex; align-items:center; gap:2rem; }
+        .nav-link { font-size:0.85rem; font-weight:600; color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.2s; }
+        .nav-link:hover { color:#fff; }
+        .nav-cta {
+            background: var(--power);
+            color:#fff; font-size:0.85rem; font-weight:700;
+            padding:0.6rem 1.4rem; border-radius:8px;
+            text-decoration:none;
+            transition:all 0.2s;
+        }
+        .nav-cta:hover { background:#7c22d4; transform:translateY(-1px); box-shadow:0 6px 20px rgba(155,48,255,0.4); }
+
+        /* ── LAYOUT ── */
+        .wrapper { position:relative; z-index:1; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height:90vh;
+            display:flex; flex-direction:column;
+            align-items:center; justify-content:center;
+            padding: 8rem 2rem 5rem;
+            text-align:center;
+        }
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:0.5rem;
+            background:rgba(155,48,255,0.12);
+            border:1px solid rgba(155,48,255,0.35);
+            color:#c084fc; font-size:0.75rem; font-weight:700;
+            letter-spacing:1px; text-transform:uppercase;
+            padding:0.4rem 1.2rem; border-radius:99px;
+            margin-bottom:2.5rem;
+        }
+        .hero-badge-dot {
+            width:6px; height:6px; border-radius:50%;
+            background:#c084fc; animation:blink 2s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+        .hero-title {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight:900;
+            line-height:1.05;
+            letter-spacing:-2px;
+            color:#fff;
+            max-width:1000px;
+        }
+        .hero-title .highlight {
+            background: linear-gradient(90deg, var(--power), #e879f9);
+            -webkit-background-clip:text; background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .hero-sub {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color:rgba(255,255,255,0.6);
+            max-width:650px;
+            line-height:1.7;
+            margin-top:1.5rem;
+        }
+
+        .hero-actions {
+            display:flex; gap:1.2rem; margin-top:3rem; flex-wrap:wrap; justify-content:center;
+        }
+        .btn-primary {
+            background:var(--power); color:#fff;
+            font-weight:700; font-size:1.05rem;
+            padding:1rem 2.5rem; border-radius:10px;
+            text-decoration:none; transition:all 0.2s;
+            display:flex; align-items:center; gap:0.6rem;
+        }
+        .btn-primary:hover { background:#7c22d4; transform:translateY(-2px); box-shadow:0 12px 30px rgba(155,48,255,0.45); }
+        .btn-secondary {
+            background:rgba(255,255,255,0.05); color:#fff;
+            font-weight:600; font-size:1.05rem;
+            padding:1rem 2.5rem; border-radius:10px;
+            text-decoration:none; border:1px solid rgba(255,255,255,0.1);
+            transition:all 0.2s;
+        }
+        .btn-secondary:hover { background:rgba(255,255,255,0.1); }
+
+        /* ── SECTION ARCHITECTURE ── */
+        .section {
+            padding: 7rem 2rem;
+            max-width:1200px; margin:0 auto;
+        }
+        .section-dark {
+            background: linear-gradient(to bottom, rgba(20,20,36,0.5), transparent);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .section-label {
+            text-align:center; font-size:0.75rem; font-weight:800;
+            letter-spacing:4px; text-transform:uppercase;
+            color:var(--power); margin-bottom:1rem;
+        }
+        .section-title {
+            text-align:center; font-size:clamp(2rem,4vw,3.2rem);
+            font-weight:800; color:#fff; letter-spacing:-1px; margin-bottom:1.5rem;
+        }
+        .section-p {
+            text-align:center; color:rgba(255,255,255,0.6); max-width:700px; margin:0 auto 4rem; font-size:1.1rem;
+        }
+
+        /* ── HOW IT WORKS (GRID) ── */
+        .features-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2rem;
+        }
+        .feature-box {
+            background:rgba(20,20,36,0.6); border:1px solid rgba(255,255,255,0.06);
+            border-radius:16px; padding:2.5rem; text-align:left;
+            transition:transform 0.2s, border-color 0.2s;
+        }
+        .feature-box:hover { transform:translateY(-5px); border-color:var(--power); }
+        .feature-icon {
+            width:56px; height:56px; border-radius:14px;
+            background:rgba(155,48,255,0.15); border:1px solid rgba(155,48,255,0.3);
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.4rem; color:#d8b4fe; margin-bottom:1.5rem;
+        }
+        .feature-title { font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:1rem; }
+        .feature-desc { font-size:0.95rem; color:rgba(255,255,255,0.6); line-height:1.7; }
+
+        /* ── DATA PANEL (VISUAL) ── */
+        .data-showcase {
+            background: #0d0d16; border:1px solid rgba(155,48,255,0.3);
+            border-radius:20px; overflow:hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            margin-top: 5rem;
+        }
+        .data-header {
+            background:rgba(255,255,255,0.03); padding:1rem 2rem; border-bottom:1px solid rgba(255,255,255,0.05);
+            display:flex; align-items:center; gap:1rem;
+        }
+        .data-dot { width:12px; height:12px; border-radius:50%; background:var(--power); }
+        .data-content { padding:3rem; text-align:center; }
+        .data-content img { max-width:100%; height:auto; border-radius:10px; opacity:0.8; }
+
+        /* ── STONES GRID ── */
+        .stones-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem;
+        }
+        .stone-card {
+            background:rgba(20,20,36,0.8);
+            border:1px solid rgba(255,255,255,0.07);
+            border-radius:16px;
+            padding:2rem 1.75rem;
+            display:flex; flex-direction:column; gap:1.2rem;
+            transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position:relative; overflow:hidden;
+        }
+        .stone-card::before {
+            content:'';
+            position:absolute; inset:0;
+            background:radial-gradient(circle at 80% 0%, var(--sc, transparent), transparent 60%);
+            opacity:0.07; pointer-events:none;
+            transition:opacity 0.3s;
+        }
+        .stone-card:hover { transform:translateY(-6px); border-color:var(--sc,rgba(255,255,255,0.15)); box-shadow:0 25px 50px rgba(0,0,0,0.5); }
+        .stone-card:hover::before { opacity:0.18; }
+
+        .stone-card.mind    { --sc:var(--mind); }
+        .stone-card.space   { --sc:var(--space); }
+        .stone-card.reality { --sc:var(--reality); }
+        .stone-card.power   { --sc:var(--power); }
+
+        .stone-avatar {
+            width:64px; height:64px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            border:2px solid var(--sc, rgba(255,255,255,0.2));
+            box-shadow:0 0 20px rgba(0,0,0,0.5);
+            background:rgba(0,0,0,0.6);
+            overflow:hidden;
+        }
+        .stone-avatar img { width:100%; height:100%; border-radius:50%; object-fit:cover; transform:scale(1.48); }
+
+        .stone-name { font-size:1.3rem; font-weight:800; color:#fff; }
+        .stone-tag  {
+            display:inline-block; font-size:0.65rem; font-weight:800;
+            letter-spacing:1.5px; text-transform:uppercase;
+            padding:4px 10px; border-radius:6px;
+            background:rgba(255,255,255,0.08);
+            color:var(--sc, var(--text-2));
+            margin-bottom:0.25rem;
+        }
+        .stone-desc { font-size:0.95rem; color:rgba(255,255,255,0.6); line-height:1.7; }
+
+        /* ── INFO BLOCKS (WHY CHOOSE) ── */
+        .info-grid {
+            display:grid; grid-template-columns: 1fr 1fr; gap:4rem; align-items:center;
+            margin-top:2rem;
+        }
+        .info-text h3 { font-size:2.2rem; font-weight:800; color:#fff; margin-bottom:1.5rem; line-height:1.2; }
+        .info-text p { font-size:1.1rem; color:rgba(255,255,255,0.6); margin-bottom:1.2rem; }
+        .info-list { list-style:none; margin-top:2rem; }
+        .info-list li { display:flex; gap:1rem; margin-bottom:1rem; font-size:1.05rem; font-weight:500; }
+        .info-list i { color:var(--power); font-size:1.2rem; }
+        .info-visual { background:var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius:24px; padding:3rem; position:relative; overflow:hidden; }
+        .info-visual::after { content:''; position:absolute; top:0; right:0; width:300px; height:300px; background:radial-gradient(circle, rgba(155,48,255,0.2), transparent 70%); }
+        
+        @media (max-width: 900px) {
+            .info-grid { grid-template-columns: 1fr; gap:2rem; }
+            .info-visual { order: -1; }
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #08080d;
+            border-top:1px solid rgba(255,255,255,0.05);
+            padding: 4rem 2rem 2rem;
+            position:relative; z-index:1;
+        }
+        .footer-content {
+            max-width:1200px; margin:0 auto;
+            display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:3rem;
+        }
+        .footer-col h4 { color:#fff; font-size:1rem; margin-bottom:1.5rem; font-weight:700; }
+        .footer-col a { display:block; color:rgba(255,255,255,0.5); text-decoration:none; margin-bottom:0.8rem; font-size:0.9rem; transition:color 0.2s; }
+        .footer-col a:hover { color:var(--power); }
+        .footer-brand i { color:var(--power); font-size:2rem; margin-bottom:1rem; }
+        .footer-brand p { color:rgba(255,255,255,0.4); font-size:0.85rem; max-width:250px; }
+        .footer-bottom {
+            max-width:1200px; margin:4rem auto 0; padding-top:2rem;
+            border-top:1px solid rgba(255,255,255,0.05);
+            display:flex; justify-content:space-between; color:rgba(255,255,255,0.3); font-size:0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-brand">
+            <img src="gauntlet_logo.png" alt="Infinity Council Logo" style="height:32px; width:auto; border-radius:4px; margin-right:10px;">
+            <span class="nav-brand-name">INFINITY COUNCIL</span>
+        </div>
+        <div class="nav-right">
+            <a href="#how-it-works" class="nav-link">How it Works</a>
+            <a href="#the-council" class="nav-link">The AIs</a>
+            <a href="app.html" class="nav-cta">Open Terminal</a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                V2 TERMINAL LIVE — SOLANA & TRADFI READY
+            </div>
+            <h1 class="hero-title">
+                Don't Trust One AI.<br>
+                <span class="highlight">Trust the Debate.</span>
+            </h1>
+            <p class="hero-sub">
+                The Infinity Council dynamically networks ChatGPT, Claude, Gemini, and Grok into a unified trading terminal. Submit a ticker, CA, or chart—and watch four superintelligences argue the data until a consensus emerges.
+            </p>
+            <div class="hero-actions">
+                <a href="app.html" class="btn-primary">
+                    <i class="fa-solid fa-bolt"></i> Enter the terminal
+                </a>
+                <a href="#how-it-works" class="btn-secondary">Read the Docs</a>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="section section-dark" id="how-it-works">
+            <p class="section-label">System Architecture</p>
+            <h2 class="section-title">One Prompt. Four Analysts. Live Data.</h2>
+            <p class="section-p">We route your queries through specialized API endpoints, fetching live on-chain and market data before injecting it directly into the context windows of four distinct AI models simultaneously.</p>
+            
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-pills"></i></div>
+                    <h3 class="feature-title">Pump.fun Solana Oracles</h3>
+                    <p class="feature-desc">Paste any Solana contract address. Our Oracle strikes the DexScreener and Pump.fun APIs instantly, pulling liquidity, market cap, and developer lore to detect rugs before you ape.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
+                    <h3 class="feature-title">Perpetual Futures Engine</h3>
+                    <p class="feature-desc">Trading Binance perps? Input a ticker to load the live 15-minute timeframe. The Council analyses funding rates and open interest to decide if longs are ripe for a squeeze.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-server"></i></div>
+                    <h3 class="feature-title">Real-time Web Search</h3>
+                    <p class="feature-desc">Enable the Web Search toggle in settings to break the training data cutoff. The Council will scrub Twitter, news, and earnings reports in real-time to find catalysts others missed.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY THE COUNCIL -->
+        <section class="section">
+            <div class="info-grid">
+                <div class="info-text">
+                    <h3>Why trade with a Council?</h3>
+                    <p>Single-model AI trading is dangerous. ChatGPT hallucinates, Claude tells you to "be cautious", Gemini refuses to analyze financial risks, and Grok leans too heavily into Twitter sentiment.</p>
+                    <p>By throwing them in the same room with the <strong>same raw market data</strong>, the Infinity Council forces them to synthesize, cross-examine, and correct each other's blind spots.</p>
+                    <ul class="info-list">
+                        <li><i class="fa-solid fa-check"></i> Eliminate single-model hallucinations</li>
+                        <li><i class="fa-solid fa-check"></i> Contrast bearish logic with bullish sentiment</li>
+                        <li><i class="fa-solid fa-check"></i> Synthesize the noise into a clear "Consensus"</li>
+                        <li><i class="fa-solid fa-check"></i> Spot manipulation in low-liquidity pairs</li>
+                    </ul>
+                </div>
+                <div class="info-visual" style="text-align:center;">
+                    <i class="fa-solid fa-network-wired" style="font-size:8rem; color:var(--power); opacity:0.8;"></i>
+                    <h4 style="margin-top:2rem; font-size:1.5rem; color:#fff;">Agent-to-Agent Architecture</h4>
+                    <p style="color:rgba(255,255,255,0.6); margin-top:1rem;">The models actively read each other's output, allowing them to dynamically agree or aggressively debunk bad logic.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE STONES -->
+        <section class="section section-dark" id="the-council">
+            <p class="section-label">The Agents & The Stones</p>
+            <h2 class="section-title">Wield the Infinite</h2>
+            <p class="section-p">Each AI governs a fundamental aspect of market reality, represented by a unique Infinity Stone. Separated, their analyses are powerful but narrow. United in the gauntlet of the Infinity Council, they converge to form an unstoppable, omniscient intelligence pipeline.</p>
+            
+            <div class="stones-grid">
+                <div class="stone-card mind">
+                    <div class="stone-avatar" style="border-color:var(--mind);box-shadow:0 0 16px rgba(255,215,0,0.2);">
+                        <img src="gpt_logo.png" alt="ChatGPT" style="filter:sepia(1) saturate(2.5) hue-rotate(5deg) brightness(1.2) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
+                    </div>
+                    <div>
+                        <div class="stone-tag" style="background:rgba(255,215,0,0.1);color:var(--mind);">MIND STONE</div>
+                        <div class="stone-name">ChatGPT</div>
+                    </div>
+                    <p class="stone-desc">Strategy & chart pattern recognition. Finds actionable paths through market noise. Calculates risk-to-reward ratios efficiently.</p>
+                </div>
+                <div class="stone-card space">
+                    <div class="stone-avatar" style="border-color:var(--space);box-shadow:0 0 16px rgba(0,191,255,0.2);">
+                        <img src="claude_logo.png" alt="Claude" style="filter:sepia(1) saturate(2.5) hue-rotate(175deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
+                    </div>
+                    <div>
+                        <div class="stone-tag" style="background:rgba(0,191,255,0.1);color:var(--space);">SPACE STONE</div>
+                        <div class="stone-name">Claude</div>
+                    </div>
+                    <p class="stone-desc">Logical depth & market nuance. Finds hidden assumptions others miss. Often the voice of risk management and fundamental logic.</p>
+                </div>
+                <div class="stone-card reality">
+                    <div class="stone-avatar" style="border-color:var(--reality);box-shadow:0 0 16px rgba(255,69,0,0.2);">
+                        <img src="gemini_logo.png" alt="Gemini" style="filter:sepia(1) saturate(3) hue-rotate(320deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
+                    </div>
+                    <div>
+                        <div class="stone-tag" style="background:rgba(255,69,0,0.1);color:var(--reality);">REALITY STONE</div>
+                        <div class="stone-name">Gemini</div>
+                    </div>
+                    <p class="stone-desc">Real-world data & sentiment. Grounds the debate with hard facts. Pulls in macroeconomic correlations and sector trends.</p>
+                </div>
+                <div class="stone-card power">
+                    <div class="stone-avatar" style="border-color:var(--power);box-shadow:0 0 16px rgba(155,48,255,0.2);">
+                        <img src="grok_logo.png" alt="Grok" style="filter:sepia(1) saturate(4) hue-rotate(240deg) brightness(0.9) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
+                    </div>
+                    <div>
+                        <div class="stone-tag" style="background:rgba(155,48,255,0.1);color:var(--power);">POWER STONE</div>
+                        <div class="stone-name">Grok</div>
+                    </div>
+                    <p class="stone-desc">Raw power & contrarian conviction. Cuts through consensus and groupthink. Tuned specifically for Crypto Twitter narratives and degen plays.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fa-solid fa-infinity"></i>
+                    <p>The premier multi-agent terminal for high-conviction traders. Four minds. One terminal.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Terminal</h4>
+                    <a href="app.html">Launch App</a>
+                    <a href="#">Oracle Documentation</a>
+                    <a href="#">System Architecture</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Ecosystem</h4>
+                    <a href="#">Solana Integration</a>
+                    <a href="#">TradingView Specs</a>
+                    <a href="#">OpenRouter Models</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="#">Not Financial Advice</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Infinity Council. All rights reserved.</span>
+                <span>Powered by Vercel & OpenRouter</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
