@@ -355,6 +355,23 @@
                 document.querySelector('.right-panel')?.classList.remove('mobile-active');
             }
         });
+
+        // ── Screen Wake Lock: keep screen on while terminal is open ──
+        let wakeLock = null;
+        async function requestWakeLock() {
+            if (!('wakeLock' in navigator)) return; // not supported
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+            } catch (err) {
+                // Silently fail (e.g. battery saver mode)
+            }
+        }
+        // Acquire on load
+        requestWakeLock();
+        // Re-acquire when tab becomes visible again (wake lock releases on tab hide)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') requestWakeLock();
+        });
     </script>
 </body>
 </html>

@@ -790,10 +790,30 @@ body {
     .oracle-btn-sub { display: none; }
     .oracle-btn-icon { font-size: 1.1rem; }
 
-    /* Market intel iframe takes full height */
-    .market-intel-pane,
+    /* Market intel iframe takes full height of panel */
+    .right-panel {
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .right-panel.mobile-active {
+        display: flex;
+    }
+    .market-intel-pane {
+        flex: 1 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        border-bottom: none !important;
+    }
     .market-intel-pane iframe {
-        height: calc(100dvh - 96px - 56px) !important;
-        min-height: 300px;
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+        border: none;
+    }
+    /* Hide secondary sections on mobile market panel — chart is king */
+    .rp-section,
+    .rp-footer {
+        display: none;
     }
 }
