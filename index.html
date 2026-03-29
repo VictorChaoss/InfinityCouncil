@@ -262,39 +262,93 @@
         }
         
         @media (max-width: 768px) {
-            /* Nav */
-            nav { padding: 0 1rem; }
+            /* ── NAV ── */
+            nav { padding: 0 1.25rem; height: 65px; background: rgba(10,10,20,0.95); }
             .nav-link { display: none; }
-            .nav-cta { padding: 0.5rem 1rem; font-size: 0.75rem; }
-            .nav-brand { gap: 0.4rem; }
+            .nav-cta { padding: 0.5rem 1rem; font-size: 0.75rem; border-radius: 6px; box-shadow: 0 0 15px rgba(155,48,255,0.2); }
+            .nav-brand { gap: 0.5rem; }
             
-            /* Hero */
-            .hero { padding-top: 7rem; padding-bottom: 3rem; min-height: auto; }
-            .hero-badge { margin-bottom: 1.5rem; font-size: 0.65rem; padding: 0.3rem 0.8rem; }
-            .hero-title { font-size: 2.2rem; margin-bottom: 1rem; }
-            .hero-subtitle { font-size: 1rem; padding: 0 0.5rem; margin-bottom: 2rem; }
-            .hero-actions { flex-direction: column; width: 100%; gap: 1rem; }
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 1rem; }
+            /* ── HERO OVERHAUL ── */
+            .hero { padding: 8rem 1.25rem 4rem; min-height: auto; }
             
-            /* Data Grid */
-            .data-grid { grid-template-columns: 1fr; }
-            .data-item { padding: 1rem; }
+            /* Sleeker mobile badge */
+            .hero-badge { 
+                margin-bottom: 2rem; 
+                font-size: 0.7rem; 
+                padding: 0.4rem 1rem; 
+                background: rgba(155,48,255,0.08);
+                border-color: rgba(155,48,255,0.25);
+                backdrop-filter: blur(10px);
+            }
             
-            /* Stones */
-            .stones-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .stone-card { padding: 1.5rem; }
+            /* Tighter, punchier hero text */
+            .hero-title { font-size: 2.8rem; margin-bottom: 1.25rem; letter-spacing: -1.5px; }
+            .hero-sub { font-size: 1.05rem; padding: 0 0.5rem; margin-bottom: 2.5rem; line-height: 1.6; }
             
-            /* Info Blocks */
+            /* Premium stacked buttons */
+            .hero-actions { flex-direction: column; width: 100%; gap: 1rem; margin-top: 0; }
+            .btn-primary, .btn-secondary { 
+                width: 100%; 
+                justify-content: center; 
+                padding: 1.15rem; 
+                font-size: 1.1rem;
+                border-radius: 12px;
+            }
+            .btn-primary {
+                box-shadow: 0 4px 25px rgba(155,48,255,0.3);
+            }
+            .btn-secondary {
+                background: rgba(255,255,255,0.03);
+                backdrop-filter: blur(10px);
+                border-color: rgba(255,255,255,0.08);
+            }
+            .btn-primary:active, .btn-secondary:active { transform: scale(0.98); }
+            
+            /* ── RHYTHM & SPACING ── */
+            .section { padding: 5rem 1.25rem; }
+            .section-label { font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 0.75rem; }
+            .section-title { font-size: 2rem; margin-bottom: 1.25rem; letter-spacing: -0.5px; }
+            .section-p { font-size: 1rem; margin-bottom: 3rem; }
+            
+            /* ── DATA GRID (Features) ── */
+            .data-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .data-item { padding: 1.5rem; border-radius: 16px; background: rgba(20,20,36,0.5); }
+            
+            /* ── STONES GRID ── */
+            .stones-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            .stone-card { 
+                padding: 1.5rem; 
+                border-radius: 16px;
+                background: linear-gradient(145deg, rgba(20,20,36,0.9), rgba(15,15,25,0.95));
+                border-color: rgba(255,255,255,0.04);
+            }
+            .stone-card::after {
+                content: '';
+                position: absolute; top: 0; left: 0; right: 0; height: 1px;
+                background: linear-gradient(90deg, transparent, var(--sc), transparent);
+                opacity: 0.3;
+            }
+            
+            /* ── INFO BLOCKS ── */
+            .info-grid { gap: 2.5rem; margin-top: 1rem; }
             .info-visual { padding: 1.5rem; border-radius: 16px; }
-            .info-text h3 { font-size: 1.6rem; }
-            .info-text p { font-size: 0.95rem; }
-            .info-list li { font-size: 0.95rem; }
+            .info-text h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+            .info-text p { font-size: 1rem; line-height: 1.6; }
+            .info-list { margin-top: 1.5rem; }
+            .info-list li { font-size: 1rem; align-items: flex-start; }
+            .info-list i { margin-top: 4px; }
             
-            /* Footer */
-            footer { padding: 3rem 1.5rem 2rem; }
+            /* ── FOOTER ── */
+            footer { padding: 4rem 1.5rem 2rem; }
+            .footer-content { gap: 2.5rem; }
             .footer-col { text-align: center; }
-            .footer-brand p { margin: 0 auto; }
-            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; margin-top: 2rem; }
+            .footer-col h4 { font-size: 1.1rem; }
+            .footer-brand p { margin: 0 auto; line-height: 1.6; }
+            .footer-bottom { 
+                flex-direction: column; gap: 1.25rem; 
+                text-align: center; margin-top: 3rem; 
+                padding-top: 1.5rem;
+            }
         }
         .footer-content {
             max-width:1200px; margin:0 auto;
