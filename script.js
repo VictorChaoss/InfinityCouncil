@@ -1340,24 +1340,11 @@ async function synthesizeConsensus(responses) {
     ];
 
     let resp;
-    if (isHosted) {
-      resp = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ provider: 'openrouter', model: 'openai/gpt-4o-mini', max_tokens: 250, messages: msgs }),
-      });
-    } else {
-      resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SESSION.apiKey}`,
-          'HTTP-Referer': window.location.href,
-          'X-Title': 'LLM4 Roundtable',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ model: 'openai/gpt-4o-mini', max_tokens: 250, messages: msgs }),
-      });
-    }
+    resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider: 'openrouter', model: 'openai/gpt-4o-mini', max_tokens: 250, messages: msgs }),
+    });
 
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const data = await resp.json();
@@ -1429,30 +1416,19 @@ async function runResearchRound(topic) {
     ];
     let findings = null;
     try {
-      if (isHosted) {
-        const resp = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            provider: SESSION.provider || 'openrouter',
-            model: AI_MODELS[modelKey].model_id,
-            messages: researchMessages,
-            max_tokens: 400,
-            plugins: [{ id: 'web' }], // web search for live data
-            // Note: API keys live server-side only
-          }),
-        });
-        const data = await resp.json();
-        findings = data.choices?.[0]?.message?.content || null;
-      } else {
-        const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SESSION.apiKey}`, 'HTTP-Referer': window.location.origin, 'X-Title': 'LLM4 Roundtable' },
-          body: JSON.stringify({ model: AI_MODELS[modelKey].model_id, messages: researchMessages, max_tokens: 150, plugins: [{ id: 'web' }] }),
-        });
-        const data = await resp.json();
-        findings = data.choices?.[0]?.message?.content || null;
-      }
+      const resp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: SESSION.provider || 'openrouter',
+          model: AI_MODELS[modelKey].model_id,
+          messages: researchMessages,
+          max_tokens: 400,
+          plugins: [{ id: 'web' }],
+        }),
+      });
+      const data = await resp.json();
+      findings = data.choices?.[0]?.message?.content || null;
     } catch (e) { findings = null; }
 
     const elapsed = Date.now() - researchStart;
