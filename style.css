@@ -423,9 +423,6 @@ body {
     padding: 0.75rem 1rem;
     border-top: 1px solid var(--border);
     flex-shrink: 0;
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
     background: var(--bg);
 }
 .input-box {
@@ -700,9 +697,10 @@ body {
     .chat-panel,
     .right-panel {
         position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
+        top: 0; left: 0; right: 0;
+        bottom: 56px; /* stop above the tab bar */
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
         border: none !important;
         display: none;
         flex-direction: column;
@@ -771,9 +769,9 @@ body {
     .mobile-tab-btn.active { color: #c084fc; }
     .mobile-tab-btn.active i { color: var(--power); }
 
-    /* Pad the content above the tab bar */
+    /* Remove extra padding — panels handle their own bottom offset */
     .dashboard-layout {
-        padding-bottom: 56px;
+        padding-bottom: 0;
     }
 
     /* Make oracle buttons horizontal on mobile */
