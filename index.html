@@ -262,20 +262,39 @@
         }
         
         @media (max-width: 768px) {
+            /* Nav */
             nav { padding: 0 1rem; }
             .nav-link { display: none; }
             .nav-cta { padding: 0.5rem 1rem; font-size: 0.75rem; }
             .nav-brand { gap: 0.4rem; }
-            .hero-title { font-size: 3rem; }
-            .hero { padding-top: 6rem; min-height: 80vh; }
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            background: #08080d;
-            border-top:1px solid rgba(255,255,255,0.05);
-            padding: 4rem 2rem 2rem;
-            position:relative; z-index:1;
+            
+            /* Hero */
+            .hero { padding-top: 7rem; padding-bottom: 3rem; min-height: auto; }
+            .hero-badge { margin-bottom: 1.5rem; font-size: 0.65rem; padding: 0.3rem 0.8rem; }
+            .hero-title { font-size: 2.2rem; margin-bottom: 1rem; }
+            .hero-subtitle { font-size: 1rem; padding: 0 0.5rem; margin-bottom: 2rem; }
+            .hero-actions { flex-direction: column; width: 100%; gap: 1rem; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 1rem; }
+            
+            /* Data Grid */
+            .data-grid { grid-template-columns: 1fr; }
+            .data-item { padding: 1rem; }
+            
+            /* Stones */
+            .stones-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .stone-card { padding: 1.5rem; }
+            
+            /* Info Blocks */
+            .info-visual { padding: 1.5rem; border-radius: 16px; }
+            .info-text h3 { font-size: 1.6rem; }
+            .info-text p { font-size: 0.95rem; }
+            .info-list li { font-size: 0.95rem; }
+            
+            /* Footer */
+            footer { padding: 3rem 1.5rem 2rem; }
+            .footer-col { text-align: center; }
+            .footer-brand p { margin: 0 auto; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; margin-top: 2rem; }
         }
         .footer-content {
             max-width:1200px; margin:0 auto;
