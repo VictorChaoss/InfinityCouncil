@@ -282,6 +282,17 @@
             border-top:1px solid rgba(255,255,255,0.05);
             display:flex; justify-content:space-between; color:rgba(255,255,255,0.3); font-size:0.8rem;
         }
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; padding: 15px; gap: 15px; text-align: center; }
+            .nav-right { flex-direction: column; width: 100%; gap: 10px; }
+            .nav-right a, .nav-right button { width: 100%; justify-content: center; }
+            .hero h1 { font-size: 2.5rem; line-height: 1.1; }
+            .hero-subtitle { font-size: 1rem; padding: 0 15px; }
+            .stones-grid, .arch-grid { grid-template-columns: 1fr; padding: 0 15px; }
+            .section-title { font-size: 2rem; }
+            .stones-section, .architecture-section { padding: 40px 0; }
+        }
     </style>
 </head>
 <body>
@@ -294,7 +305,7 @@
     <!-- NAVBAR -->
     <nav>
         <div class="nav-brand">
-            <img src="gauntlet_logo.png" alt="Infinity Council Logo" style="height:32px; width:auto; border-radius:4px; margin-right:10px;">
+            <img src="gauntlet_logo.png" alt="Infinity Council Logo" style="height:48px; width:auto; border-radius:6px; margin-right:15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
             <span class="nav-brand-name">INFINITY COUNCIL</span>
         </div>
         <div class="nav-right">

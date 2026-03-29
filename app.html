@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Council – AI Trading Terminal</title>
-    <link rel="stylesheet" href="style.css?v=8.0">
+    <link rel="stylesheet" href="style.css?v=9.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -13,7 +13,7 @@
     <!-- TOP BAR -->
     <div class="top-bar">
         <div class="top-bar-left">
-            <img src="gauntlet_logo.png" alt="Infinity Council Logo" style="height:24px; width:auto; border-radius:4px; margin-right:8px;">
+            <img src="gauntlet_logo.png" alt="Infinity Council Logo" style="height:44px; width:auto; border-radius:6px; margin-right:12px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
             <span class="top-bar-brand">INFINITY COUNCIL</span>
         </div>
         <div class="top-bar-center">
@@ -89,6 +89,23 @@
                     <span class="ch-sub">w/ COUNCIL</span>
                 </div>
                 <div class="chat-header-right">
+                    <button class="hdr-btn" id="chart-toggle-btn" onclick="toggleInlineChart()" title="Toggle Chart">
+                        <i class="fa-solid fa-chart-candlestick"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- INLINE CHART PANE -->
+            <div class="inline-chart-pane" id="inline-chart-pane">
+                <div class="inline-chart-header">
+                    <span id="inline-chart-label">📊 BTC/USD — PUMP.FUN ACTIVE</span>
+                    <button class="inline-chart-close" onclick="toggleInlineChart()" title="Close Chart">✕</button>
+                </div>
+                <div class="inline-chart-embed" id="inline-chart-embed">
+                    <div class="empty-state" style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                        <i class="fa-solid fa-satellite-dish"></i>
+                        <p>Select Oracle mode or submit a CA to load chart</p>
+                    </div>
                 </div>
             </div>
 
@@ -200,6 +217,15 @@
             setTimeout(tick, 30000);
         })();
 
+        // Inline chart toggle
+        function toggleInlineChart() {
+            const pane = document.getElementById('inline-chart-pane');
+            const btn  = document.getElementById('chart-toggle-btn');
+            if (!pane) return;
+            const isOpen = pane.classList.toggle('open');
+            if (btn) btn.classList.toggle('chart-active', isOpen);
+        }
+
         // Oracle deck — standalone handler, no dependency on script.js globals
         (function wireOracle() {
             const deck = document.getElementById('oracle-menu');
@@ -239,18 +265,96 @@
 
                     // Load default charts into Market Intel Pane
                     const intelPane = document.getElementById('market-intel-pane');
+                    const inlineEmbed = document.getElementById('inline-chart-embed');
+                    const inlineLabel = document.getElementById('inline-chart-label');
+
+                    const tradfiIframe = `<iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:BTCUSDT&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>`;
+                    const perpsIframe  = `<iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:BTCUSDTPERP&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=Volume%40tv-basicstudies&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>`;
+
                     if (intelPane) {
                         if (mode === 'tradfi') {
-                            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Chart:</strong> BTC/USD (TradFi / Crypto)</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;"><iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:BTCUSDT&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe></div>`;
+                            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Chart:</strong> BTC/USD (TradFi / Crypto)</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">${tradfiIframe}</div>`;
                         } else if (mode === 'perps') {
-                            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Derivatives:</strong> 15m Binance BTC Perpetuals</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;"><iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:BTCUSDTPERP&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=Volume%40tv-basicstudies&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe></div>`;
+                            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Derivatives:</strong> 15m Binance BTC Perpetuals</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">${perpsIframe}</div>`;
                         } else if (mode === 'pump') {
                             intelPane.innerHTML = `<div class="empty-state"><i class="fa-solid fa-satellite-dish"></i><p>Pump.fun Active</p><p class="empty-sub">Submit a CA to load live DexScreener chart</p></div>`;
+                        }
+                    }
+
+                    // Also update inline chart pane in the center chat panel
+                    if (inlineEmbed) {
+                        if (mode === 'tradfi') {
+                            if (inlineLabel) inlineLabel.textContent = '📊 BTC/USD — TradFi / Crypto';
+                            inlineEmbed.innerHTML = tradfiIframe;
+                        } else if (mode === 'perps') {
+                            if (inlineLabel) inlineLabel.textContent = '🔥 BTC Perpetuals — 15m';
+                            inlineEmbed.innerHTML = perpsIframe;
+                        } else if (mode === 'pump') {
+                            if (inlineLabel) inlineLabel.textContent = '💊 Pump.fun — Submit CA for chart';
+                            inlineEmbed.innerHTML = `<div class="empty-state" style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><i class="fa-solid fa-satellite-dish"></i><p>Submit a CA to load live DexScreener chart</p></div>`;
                         }
                     }
                 });
             });
         })();
+    </script>
+
+    <!-- MOBILE TAB BAR (hidden on desktop via CSS) -->
+    <nav class="mobile-tab-bar" id="mobile-tab-bar">
+        <button class="mobile-tab-btn" id="mtab-bots" onclick="switchMobileTab('bots')">
+            <i class="fa-solid fa-robot"></i>
+            <span>Bots</span>
+        </button>
+        <button class="mobile-tab-btn active" id="mtab-chat" onclick="switchMobileTab('chat')">
+            <i class="fa-solid fa-comments"></i>
+            <span>Chat</span>
+        </button>
+        <button class="mobile-tab-btn" id="mtab-market" onclick="switchMobileTab('market')">
+            <i class="fa-solid fa-chart-bar"></i>
+            <span>Market</span>
+        </button>
+    </nav>
+
+    <script>
+        // Mobile Tab Switching
+        function switchMobileTab(tab) {
+            const panels = {
+                bots:   document.querySelector('.left-panel'),
+                chat:   document.querySelector('.chat-panel'),
+                market: document.querySelector('.right-panel')
+            };
+            const btns = {
+                bots:   document.getElementById('mtab-bots'),
+                chat:   document.getElementById('mtab-chat'),
+                market: document.getElementById('mtab-market')
+            };
+
+            // Hide all panels, deactivate all tabs
+            Object.values(panels).forEach(p => p && p.classList.remove('mobile-active'));
+            Object.values(btns).forEach(b => b && b.classList.remove('active'));
+
+            // Show selected panel and activate tab
+            if (panels[tab]) panels[tab].classList.add('mobile-active');
+            if (btns[tab]) btns[tab].classList.add('active');
+        }
+
+        // Init: set chat panel as default active on mobile
+        if (window.innerWidth <= 768) {
+            switchMobileTab('chat');
+        }
+
+        // Re-init on resize (handles orientation change)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                const anyActive = document.querySelector('.left-panel.mobile-active, .chat-panel.mobile-active, .right-panel.mobile-active');
+                if (!anyActive) switchMobileTab('chat');
+            } else {
+                // Desktop: remove all mobile-active so panels revert to normal CSS
+                document.querySelector('.left-panel')?.classList.remove('mobile-active');
+                document.querySelector('.chat-panel')?.classList.remove('mobile-active');
+                document.querySelector('.right-panel')?.classList.remove('mobile-active');
+            }
+        });
     </script>
 </body>
 </html>
