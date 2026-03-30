@@ -109,6 +109,7 @@
         .s4-logo {
             width: 250px; opacity: 0; transform: scale(0.8);
             filter: drop-shadow(0 0 50px rgba(155,48,255,0.6));
+            mix-blend-mode: screen; /* instantly removes the dark square background */
             margin-bottom: 2rem;
         }
         .s4-title {
@@ -116,15 +117,17 @@
             text-transform: uppercase; opacity: 0;
             background: linear-gradient(90deg, #fff, rgba(255,255,255,0.4));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center;
         }
         
-        /* Glitch effects */
-        .glitch { position: relative; }
-        .glitch::before, .glitch::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0; opacity: 0.8;
+        /* Premium Glow Pulse */
+        .glow-pulse {
+            animation: pulse-glow 3s infinite alternate ease-in-out;
         }
-        .glitch::before { left: 2px; text-shadow: -2px 0 red; animation: noise-1 3s infinite linear alternate-reverse; }
-        .glitch::after { left: -2px; text-shadow: -2px 0 blue; animation: noise-2 3s infinite linear alternate-reverse; }
+        @keyframes pulse-glow {
+            0% { filter: drop-shadow(0 0 10px rgba(155,48,255,0.2)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 40px rgba(155,48,255,1)); transform: scale(1.02); }
+        }
     </style>
 </head>
 <body>
@@ -268,9 +271,9 @@
             tl.set('#scene4', { opacity: 1 })
               .to('.s4-logo', { opacity: 1, scale: 1, duration: 2, ease: 'elastic.out(1, 0.5)' })
               .to('.s4-title', { opacity: 1, duration: 2.5, ease: 'power4.out' }, "-=1")
-              // apply glitch pulse
+              // apply premium glow
               .call(() => {
-                  document.querySelector('.s4-title').classList.add('glitch');
+                  document.querySelector('.s4-title').classList.add('glow-pulse');
               })
               // infinite slow zoom on logo
               .to('.s4-logo', { scale: 1.05, duration: 10, ease: 'linear' });
