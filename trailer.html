@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Council Trailer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mind: #FFD700;
+            --space: #00BFFF;
+            --reality: #FF4500;
+            --power: #9B30FF;
+            --bg: #030305;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            overflow: hidden; /* Hide scrollbars for recording */
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+        }
+        
+        /* Start Button overlay */
+        #start-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--bg);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s;
+        }
+        #start-btn {
+            background: #fff; color: #000; font-size: 1.2rem; font-weight: 800;
+            padding: 1rem 3rem; border: none; border-radius: 50px; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+            transition: transform 0.2s;
+        }
+        #start-btn:hover { transform: scale(1.05); }
+
+        /* Scene Container */
+        .scene {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+        }
+
+        /* Scene 1: Pitch Black Text */
+        .s1-text {
+            font-size: 6vw; font-weight: 900; letter-spacing: -2px;
+            opacity: 0; position: absolute;
+            text-align: center;
+        }
+
+        /* Scene 2: The Stones */
+        .s2-grid {
+            display: flex; gap: 4vw; opacity: 0;
+            align-items: center; justify-content: center;
+        }
+        .stone {
+            display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+            opacity: 0; transform: translateY(40px) scale(0.9);
+        }
+        .stone img {
+            width: 120px; height: 120px; border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 40px var(--c);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .stone-title {
+            font-size: 1.5rem; font-weight: 800; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--c);
+            text-shadow: 0 0 20px var(--c);
+        }
+        .stone-ai {
+            font-size: 1.1rem; color: rgba(255,255,255,0.7); font-weight: 600;
+        }
+        
+        /* Scene 3: Modes */
+        .s3-wrapper {
+            display: flex; flex-direction: column; gap: 3rem; align-items: center;
+        }
+        .s3-title {
+            font-size: 4vw; font-weight: 900; letter-spacing: -1px; opacity: 0;
+            text-shadow: 0 0 30px rgba(155,48,255,0.5);
+        }
+        .modes-container {
+            display: flex; gap: 3rem; perspective: 1000px;
+        }
+        .mode-card {
+            background: rgba(20,20,30,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 3rem 2rem; border-radius: 20px;
+            text-align: center; width: 280px;
+            opacity: 0; transform: translateY(50px) rotateX(20deg);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .mode-card h3 { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+        .mode-card p { font-size: 1rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+        .mode-icon { font-size: 3rem; color: var(--power); margin-bottom: 1.5rem; text-shadow: 0 0 20px var(--power); }
+
+        /* Scene 4: Climax */
+        .s4-logo {
+            width: 250px; opacity: 0; transform: scale(0.8);
+            filter: drop-shadow(0 0 50px rgba(155,48,255,0.6));
+            margin-bottom: 2rem;
+        }
+        .s4-title {
+            font-size: 5vw; font-weight: 900; letter-spacing: 8px;
+            text-transform: uppercase; opacity: 0;
+            background: linear-gradient(90deg, #fff, rgba(255,255,255,0.4));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        /* Glitch effects */
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; opacity: 0.8;
+        }
+        .glitch::before { left: 2px; text-shadow: -2px 0 red; animation: noise-1 3s infinite linear alternate-reverse; }
+        .glitch::after { left: -2px; text-shadow: -2px 0 blue; animation: noise-2 3s infinite linear alternate-reverse; }
+    </style>
+</head>
+<body>
+
+    <!-- START OVERLAY -->
+    <div id="start-overlay">
+        <h2 style="margin-bottom: 2rem; color: rgba(255,255,255,0.5); font-weight: 400;">Ensure your screen recorder is ready.</h2>
+        <button id="start-btn">Start Trailer</button>
+    </div>
+
+    <!-- SCENE 1: Typography -->
+    <div class="scene" id="scene1">
+        <div class="s1-text" id="t1">Four Minds.</div>
+        <div class="s1-text" id="t2">One Decision.</div>
+        <div class="s1-text" id="t3">Absolute Consensus.</div>
+    </div>
+
+    <!-- SCENE 2: The Stones -->
+    <div class="scene" id="scene2">
+        <div class="s2-grid">
+            <div class="stone" style="--c: var(--mind);">
+                <img src="gpt_logo.png" style="filter:sepia(1) saturate(2.5) hue-rotate(5deg) brightness(1.2);">
+                <div class="stone-title">Mind</div>
+                <div class="stone-ai">ChatGPT</div>
+            </div>
+            <div class="stone" style="--c: var(--space);">
+                <img src="claude_logo.png" style="filter:sepia(1) saturate(2.5) hue-rotate(175deg) brightness(1.1);">
+                <div class="stone-title">Space</div>
+                <div class="stone-ai">Claude</div>
+            </div>
+            <div class="stone" style="--c: var(--reality);">
+                <img src="gemini_logo.png" style="filter:sepia(1) saturate(3) hue-rotate(320deg) brightness(1.1);">
+                <div class="stone-title">Reality</div>
+                <div class="stone-ai">Gemini</div>
+            </div>
+            <div class="stone" style="--c: var(--power);">
+                <img src="grok_logo.png" style="filter:sepia(1) saturate(4) hue-rotate(240deg) brightness(0.9);">
+                <div class="stone-title">Power</div>
+                <div class="stone-ai">Grok</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENE 3: The 3 Modes -->
+    <div class="scene" id="scene3">
+        <div class="s3-wrapper">
+            <div class="s3-title">Three Modes of Analysis</div>
+            <div class="modes-container">
+                <div class="mode-card">
+                    <div class="mode-icon">⚡</div>
+                    <h3>Bot Config</h3>
+                    <p>Customize the personalities, risk tolerance, and intelligence tier of each AI.</p>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-icon">💬</div>
+                    <h3>The Debate</h3>
+                    <p>Submit any token or contract address and watch the four superintelligences argue live.</p>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-icon">📊</div>
+                    <h3>Market Intel</h3>
+                    <p>Live, integrated charts dynamically updating inside the council's mind.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENE 4: Climax -->
+    <div class="scene" id="scene4">
+        <img src="gauntlet_logo.png" class="s4-logo">
+        <div class="s4-title" data-text="INFINITY COUNCIL">INFINITY COUNCIL</div>
+    </div>
+
+    <!-- GreenSock Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        document.getElementById('start-btn').addEventListener('click', async () => {
+            // Request fullscreen for a perfect cinematic recording
+            try {
+                if (document.documentElement.requestFullscreen) {
+                    await document.documentElement.requestFullscreen();
+                }
+            } catch(e) { console.log(e); }
+
+            // Hide overlay
+            gsap.to('#start-overlay', { opacity: 0, duration: 0.5, onComplete: () => {
+                document.getElementById('start-overlay').style.display = 'none';
+                startCinematic();
+            }});
+        });
+
+        function startCinematic() {
+            // GSAP Master Timeline
+            const tl = gsap.timeline();
+
+            // S1
+            gsap.set('#scene1', { opacity: 1 });
+            tl.to('.s1-text', { duration: 0, display: 'none' }) // reset
+              .set('#t1', { display: 'block' })
+              .to('#t1', { opacity: 1, scale: 1.1, duration: 2, ease: 'power2.out' })
+              .to('#t1', { opacity: 0, scale: 1.2, duration: 1, ease: 'power2.in' })
+              
+              .set('#t2', { display: 'block' })
+              .to('#t2', { opacity: 1, scale: 1.1, duration: 2, ease: 'power2.out' })
+              .to('#t2', { opacity: 0, scale: 1.2, duration: 1, ease: 'power2.in' })
+              
+              .set('#t3', { display: 'block' })
+              .to('#t3', { opacity: 1, scale: 1.05, duration: 2, ease: 'power2.out' })
+              .to('#t3', { opacity: 0, scale: 1.1, duration: 1, ease: 'power2.in' })
+              .set('#scene1', { opacity: 0 });
+
+            // S2: The Stones
+            tl.set('#scene2', { opacity: 1 })
+              .to('.s2-grid', { opacity: 1, duration: 1 })
+              .to('.stone', { 
+                  opacity: 1, y: 0, scale: 1, 
+                  duration: 1.5, stagger: 0.6, 
+                  ease: 'elastic.out(1, 0.7)' 
+               })
+              // Hold for 3 seconds to let user read
+              .to({}, { duration: 3 })
+              // Fade out
+              .to('.s2-grid', { opacity: 0, y: -50, duration: 1, ease: 'power2.in' })
+              .set('#scene2', { opacity: 0 });
+
+            // S3: 3 Modes
+            tl.set('#scene3', { opacity: 1 })
+              .to('.s3-title', { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out' })
+              .to('.mode-card', {
+                  opacity: 1, y: 0, rotateX: 0,
+                  duration: 1.2, stagger: 0.3,
+                  ease: 'back.out(1.2)'
+              }, "-=0.5")
+              // Hold
+              .to({}, { duration: 3.5 })
+              // Fade out
+              .to('#scene3', { opacity: 0, scale: 0.9, duration: 1.5, ease: 'power2.inOut' })
+              .set('#scene3', { opacity: 0 });
+
+            // S4: Climax
+            tl.set('#scene4', { opacity: 1 })
+              .to('.s4-logo', { opacity: 1, scale: 1, duration: 2, ease: 'elastic.out(1, 0.5)' })
+              .to('.s4-title', { opacity: 1, duration: 2.5, ease: 'power4.out' }, "-=1")
+              // apply glitch pulse
+              .call(() => {
+                  document.querySelector('.s4-title').classList.add('glitch');
+              })
+              // infinite slow zoom on logo
+              .to('.s4-logo', { scale: 1.05, duration: 10, ease: 'linear' });
+        }
+    </script>
+</body>
+</html>
