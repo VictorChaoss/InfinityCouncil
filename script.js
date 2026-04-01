@@ -877,40 +877,64 @@ async function sendMessage() {
     }
   }
 
-  // Mode 3: Perps / Funding (Coinglass Advanced Crypto)
+  // Mode 3: Perps / Funding (Live Binance data)
   else if (currentOracleMode === 'perps') {
-    // Extract ticker from sentence (prioritize $ prefixed, all-caps, or fallback to last word)
     const words = cleanedContent.split(/[\s,!?]+/);
-    let extracted = words.find(w => w.startsWith('$')) || 
-                    words.find(w => /^[A-Z0-9]{2,10}$/.test(w)) || 
+    let extracted = words.find(w => w.startsWith('$')) ||
+                    words.find(w => /^[A-Z0-9]{2,10}$/.test(w)) ||
                     words[words.length - 1];
     const ticker = (extracted || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (ticker) {
-      appendToTranscript('system', `🔥 <strong>Oracle Detected Perps Play:</strong> Fetching liquidation zones and funding data for <code>${ticker}</code>...`);
+      appendToTranscript('system', `🔥 <strong>Oracle Detected Perps Play:</strong> Fetching live Binance data for <code>${ticker}USDT</code>...`);
 
-      finalContent = `[ORACLE — PERPETUAL FUTURES / DERIVATIVES ANALYSIS]\n` +
-        `Asset: ${ticker} Perpetuals (Binance USDT-M)\n` +
-        `[YOUR ROLE]: You are a high-leverage degen who lives and breathes derivatives. Give your aggressive, specific take on whether longs or shorts are about to get REKT for ${ticker}.\n` +
-        `Key things to reason about: funding rate direction (positive = longs paying, bearish signal; negative = shorts paying, bullish signal), open interest trend, where liquidity clusters sit (likely stop hunt zones), and whether price action suggests MM accumulation or distribution.\n` +
-        `If Web Search is enabled, search "Coinglass ${ticker} funding rate" and "${ticker} open interest" for live data.\n\n` +
-        `RESPONSE FORMAT: 3-4 sentences, 80-100 words MAX. Aggressive, sharp trading voice. Take a clear directional stance. DO NOT summarize other agents. Call out a specific price level or liquidation zone if possible.`;
+      // Fetch live Binance perps data server-side
+      let liveData = null;
+      try {
+        const mktRes = await fetch(`/api/market?ticker=${ticker}`);
+        if (mktRes.ok) liveData = await mktRes.json();
+      } catch (e) { /* silent fallback */ }
 
-      // Use a generic crypto chart focused on the perpetuals vibe for now
+      if (liveData && !liveData.error) {
+        const fundingSignal = parseFloat(liveData.fundingRate) > 0
+          ? '⚠️ POSITIVE — longs paying shorts (bearish signal, crowded long)'
+          : parseFloat(liveData.fundingRate) < 0
+            ? '🟢 NEGATIVE — shorts paying longs (bullish signal, crowded short)'
+            : 'NEUTRAL';
+
+        appendToTranscript('system', `✅ <strong>Live Binance Data Secured:</strong> ${ticker} @ $${liveData.price} | Funding: ${liveData.fundingRate} | OI: ${liveData.openInterest}`);
+
+        finalContent = `[ORACLE — LIVE BINANCE PERPS DATA as of ${new Date().toLocaleTimeString()}]\n` +
+          `Asset: ${liveData.symbol} Perpetual Futures\n` +
+          `Price: $${liveData.price} | 24h Change: ${liveData.change24h}% | Volume: $${liveData.volume24h}\n` +
+          `Funding Rate: ${liveData.fundingRate} → ${fundingSignal}\n` +
+          `Open Interest: ${liveData.openInterest}\n` +
+          `\n[YOUR ROLE]: You are a high-leverage degen who lives and breathes derivatives. All numbers above are LIVE — don't search for data, it's already here. Reason about: is the funding rate signalling crowded positioning? Is OI rising (conviction) or falling (washout)? Where are the likely stop-hunt zones based on price levels?\n` +
+          `RESPONSE FORMAT: 3-4 sentences, 80-100 words MAX. Aggressive, sharp. State longs or shorts getting REKT. Name a specific price level. DO NOT summarize other agents.`;
+      } else {
+        // If Binance has no market for this (e.g., not a perps coin), fall back gracefully
+        appendToTranscript('system', `⚠️ No Binance perps market found for ${ticker}. Proceeding with AI analysis.`);
+        finalContent = `[ORACLE — PERPETUAL FUTURES ANALYSIS]\nAsset: ${ticker}\nNote: No live Binance market data available for this ticker. Use your training knowledge of this asset's perps market.\n` +
+          `RESPONSE FORMAT: 3-4 sentences, 80-100 words MAX. Aggressive, sharp trader voice. DO NOT summarize other agents.`;
+      }
+
       const perpIframe = `<div style="margin-top: 15px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">
         <iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:${ticker}USDTPERP&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=Volume%40tv-basicstudies&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>
       </div>`;
 
       const intelPane = document.getElementById('market-intel-pane');
       if (intelPane) {
-          intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Derivatives Chart Secured:</strong> 15m Binance ${ticker} Perpetuals</div>` + perpIframe;
-          appendToTranscript('system', `Perps Oracle data routed to Market Intelligence panel.`);
+        intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">🔥 <strong>${ticker} Perpetuals</strong>${liveData && !liveData.error ? ` | $${liveData.price} | Funding: ${liveData.fundingRate} | OI: ${liveData.openInterest}` : ''}</div>` + perpIframe;
+        appendToTranscript('system', `Perps Oracle data routed to Market Intelligence panel.`);
       } else {
-          appendToTranscript('system', `✅ <strong>Derivatives Chart Secured:</strong> 15m Binance ${ticker} Perpetuals ${perpIframe}`);
+        appendToTranscript('system', `✅ <strong>Derivatives Chart Secured:</strong> 15m Binance ${ticker} Perpetuals ${perpIframe}`);
       }
     }
   }
 
-  chatHistory.push({ role: 'user', content: finalContent, image });
+  // Store the ORIGINAL user message in history (not the oracle blob).
+  // The oracle-enriched finalContent is injected only into the first live API call via the last chatHistory entry below.
+  // Storing finalContent here would cause Claude to see the same huge oracle text repeated on every debate round → duplicate prompt errors.
+  chatHistory.push({ role: 'user', content: finalContent, image, _displayContent: content });
   appendToTranscript('user', content);
 
   // Pre-debate research round if enabled
@@ -1111,13 +1135,19 @@ async function fetchAIResponse(modelKey, history) {
   const others = AGENT_ORDER.filter(k => k !== modelKey).map(k => AI_MODELS[k].name).join(', ');
 
   // Build API messages — clearly label each AI speaker so models know who said what
-  const apiMessages = history.map(msg => {
+  // For the first user message: use full oracle-enriched content.
+  // For repeated rounds (when _displayContent exists): use the clean original message
+  // to prevent Claude's duplicate-prompt detection from firing on rounds 2, 3, 4.
+  const apiMessages = history.map((msg, idx) => {
     if (msg.role === 'user') {
+      // Use _displayContent (clean original) except for the very last user message (the live oracle entry)
+      const isLastUserMsg = history.slice(idx + 1).every(m => m.role !== 'user');
+      const textContent = (msg._displayContent && !isLastUserMsg) ? msg._displayContent : msg.content;
       return {
         role: 'user',
         content: msg.image
-          ? [{ type: 'image_url', image_url: { url: msg.image } }, { type: 'text', text: msg.content }]
-          : msg.content,
+          ? [{ type: 'image_url', image_url: { url: msg.image } }, { type: 'text', text: textContent }]
+          : textContent,
       };
     }
 
