@@ -811,40 +811,15 @@ async function sendMessage() {
           if (loreData.marketCapSol) loreSection += `- Pump.fun Market Cap: ${loreData.marketCapSol}\n`;
         }
 
-        finalContent = `[ORACLE — PUMP.FUN MEMECOIN ANALYSIS]\n` +
-          `Token: $${tokenData.symbol} (${tokenData.name || 'Unknown'})\n` +
-          `Price: $${tokenData.price} | Market Cap: $${tokenData.marketCap} | 24h Volume: $${tokenData.volume24h} | Liquidity: $${tokenData.liquidity}\n` +
+        finalContent = `[ORACLE — PUMP.FUN MEMECOIN]\n` +
+          `$${tokenData.symbol} (${tokenData.name || '?'}) | Price: $${tokenData.price} | MC: $${tokenData.marketCap} | Vol24h: $${tokenData.volume24h} | Liq: $${tokenData.liquidity}\n` +
           loreSection +
-          `\n[DEGENERATE TRADER KNOWLEDGE BASE — USE THIS TO FORM YOUR TAKE]:\n` +
-          `MARKET CAP STAGES:\n` +
-          `- Under $10k = ultra-early, still on inner bonding curve. Extremely high risk/reward. Most die here.\n` +
-          `- $10k-$100k = bonding curve phase, community forming. Watch hourly velocity — dying coins go quiet fast.\n` +
-          `- $100k-$1M = micro-cap. Has survived the initial dump wave. If volume is consistent, could be a runner.\n` +
-          `- $1M-$10M = small cap with traction. Dev likely already sold. Question is whether community took over.\n` +
-          `- $10M+ = probably already priced in. Only enter if there's a clear new narrative catalyst.\n` +
-          `LIQUIDITY SIGNALS:\n` +
-          `- Under $5k liquidity = one whale sell nukes the chart. Danger zone unless you're in early and watching exit closely.\n` +
-          `- $5k-$30k = thin but playable. Set tight stops.\n` +
-          `- $30k+ = healthy, manipulation is harder. More likely to hold levels.\n` +
-          `- If graduated to Raydium = liquidity is locked, dev CANNOT pull the pool. Safer floor.\n` +
-          `VOLUME VS MCAP (KEY SIGNAL):\n` +
-          `- Volume > 150% of MCAP in last 24h = massive organic interest or bot-driven wash trading. Check price action — is it climbing or oscillating? Organic pumps trend. Bots oscillate.\n` +
-          `- Volume < 10% of MCAP = dead coin. Nobody is trading. Exit or avoid.\n` +
-          `- Volume spiking but price flat or declining = someone is selling into every buy. Bearish divergence.\n` +
-          `SNIPER AND BUNDLE RED FLAGS (infer from context):\n` +
-          `- If a coin launched and hit $500k+ MCAP in under 5 minutes, likely bundled/sniped.\n` +
-          `- Bundled launches often have 1-3 wallets holding 30-60% of supply. They will exit on you.\n` +
-          `- Check if creator description mentions a specific team or roadmap — real organic projects rarely have polished roadmaps on pump.fun.\n` +
-          `SOCIAL SIGNAL QUALITY:\n` +
-          `- Twitter and Telegram links present = legitimate community attempt. No links = dev flying blind or anon rug setup.\n` +
-          `- If Twitter was created within 24h of launch = burner account, major red flag.\n` +
-          `- Strong lore (a specific animal, famous character, political figure, trending meme) = community will organically shill it. Generic names (e.g. just "INU" or "MOON") = weak narrative, harder to sustain.\n` +
-          `BONDING CURVE MECHANICS:\n` +
-          `- Pump.fun bonds end at ~$69k MCAP (roughly 79 SOL raised). After that, it migrates to Raydium automatically.\n` +
-          `- Buying near the top of the bonding curve (~$50k-$69k MCAP) is extremely high risk — migration dumps are common.\n` +
-          `- If already on Raydium, the migration sell pressure should have already happened. Dip buyers post-migration often see bounces.\n` +
-          `\n[YOUR ROLE]: You are a battle-hardened Solana degen who has called hundreds of pump.fun launches correctly. You size positions in seconds. You can smell a rug from the lore alone. Give your COLD, HONEST, SPECIFIC verdict on this token. Use the actual numbers and lore above. Call out red flags or green lights explicitly.\n` +
-          `RESPONSE FORMAT: 3-5 sentences. 80-120 words MAX. Raw, direct degen voice. State your actual bias: BUY / AVOID / WATCH. Back it with the data. Zero fluffy disclaimers. DO NOT repeat or summarize what other agents said — build on or challenge their argument.`;
+          `\n[DEGEN FRAMEWORK]: MC<$10k=inner curve (90% die); $10k-$100k=forming; $100k-$1M=survived, possible runner; $1M-$10M=dev sold, community play; $10M+=likely topped.\n` +
+          `Liq<$5k=one sell nukes it; $5k-$30k=thin; $30k+=solid. Raydium=pool locked, no rug.\n` +
+          `Vol>MC=huge interest (organic if trending up, bots if flat/down). Vol<10% MC=dead. Vol up + price flat=smart money selling into buys.\n` +
+          `Rug flags: $500k MC in <5min=sniped; no Twitter/TG=anon; polished roadmap on pump.fun=red flag; generic name (INU/MOON)=weak narrative.\n` +
+          `Bonding curve tops at ~$69k MC. Buying $50k-$69k range=danger, migration dump likely. Post-Raydium dip=possible bounce.\n` +
+          `\n[YOUR ROLE]: Solana degen. Give COLD verdict on this token using the numbers + lore. End with BUY / AVOID / WATCH + one-line reason. 80 words MAX. No disclaimers. Don't summarize others — challenge or build on their point.`;
 
         const chartIframe = `<div style="margin-top: 15px; border-radius: 8px; overflow: hidden; width: 100%; height: 350px;">
           <iframe width="100%" height="100%" src="https://dexscreener.com/solana/${extractedCa}?embed=1&theme=dark&trades=0&info=0" frameborder="0"></iframe>
@@ -2210,9 +2185,7 @@ function triggerSentienceGlitch() {
 /* ─── LIVE PRICE TICKER — BTC / SOL / ETH via CoinGecko ─── */
 async function fetchLivePrices() {
   try {
-    const res = await fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,solana,ethereum&vs_currencies=usd&include_24hr_change=true'
-    );
+    const res = await fetch('/api/prices');
     if (!res.ok) return;
     const d = await res.json();
 
