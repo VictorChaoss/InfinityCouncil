@@ -1158,38 +1158,7 @@ async function fetchAIResponse(modelKey, history) {
   }
 
   const timeContext = `\n\n[SYSTEM CLOCK: The current date and time is ${new Date().toLocaleString()}. You are operating in real-time. Do not say you are an AI without access to the current date.]`;
-  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Infinity Council' — a multi-AI trading terminal where ChatGPT, Claude, Gemini and Grok debate every market signal together. When the user submits a CA or ticker, all four AIs analyse it simultaneously.]` +
-    `\n\n[PUMP.FUN & SOLANA MEMECOIN KNOWLEDGE — READ THIS CAREFULLY]:\n` +
-    `Pump.fun is a Solana-based memecoin launchpad. Any wallet can deploy a token in seconds with zero technical knowledge. Here is everything you need to know to reason about these coins like an expert:\n\n` +
-    `TOKENOMICS AND MECHANICS:\n` +
-    `- Every coin starts on a "bonding curve". Early buyers get the cheapest price. As more SOL pours in, the price rises automatically. At ~$69,000 market cap, the coin "graduates" to Raydium (a live DEX) and its liquidity is permanently locked. Before graduation, there is NO external market — only the bonding curve.\n` +
-    `- Total supply is always 1 billion tokens. Dev wallet is typically 0–5%. Most of the supply is available at launch.\n` +
-    `- "Snipers" are bots that buy in the first seconds of a launch to get the cheapest tokens and dump them on retail buyers.\n` +
-    `- "Bundlers" are coordinated wallets that buy a huge percentage of supply (sometimes 20-50%) within a single block using multiple wallets — this is considered deeply manipulative and is a major red flag.\n` +
-    `- "Insider supply" refers to the percentage of tokens held by the top 10 wallets. Anything above 30% is a significant centralization risk.\n\n` +
-    `RUG PULL PATTERNS:\n` +
-    `- "Hard rug": Dev or bundler dumps all tokens at peak hype, crashing the price to zero. All retail buyers are left holding worthless tokens.\n` +
-    `- "Slow rug": Price slowly bleeds as dev/insiders sell gradually. Retail never fully realizes what's happening.\n` +
-    `- "Liquidity rug": On older platforms (not Pump.fun post-graduation), devs could remove liquidity at any time. On Pump.fun post-Raydium, liquidity is burned/locked — this is a genuine safety feature.\n` +
-    `- Low liquidity (under $10,000) means a whale can crash the price with a single sell.\n` +
-    `- Low volume with a large market cap = nobody is actually trading it = price is manufactured.\n\n` +
-    `100X SIGNALS (BULLISH):\n` +
-    `- Organic Twitter/X community with real memes and self-made content (not just a Telegram pump group).\n` +
-    `- KOL (Key Opinion Leader) / influencer attention (e.g., Murad, Ansem, or large CT accounts posting about it).\n` +
-    `- Tight supply distribution — no single wallet holds more than 5%.\n` +
-    `- Graduated to Raydium with locked liquidity ($50k+ liquidity is strong).\n` +
-    `- High 24h volume relative to market cap (volume/mcap ratio above 0.5 is very healthy).\n` +
-    `- A relatable, funny, or culturally resonant ticker/name (e.g., animals, politicians, internet memes).\n` +
-    `- Community is "vibing" — Discord/Telegram has daily organic activity.\n\n` +
-    `CULTURE:\n` +
-    `- "Degen" = degenerate gambler mentality. Degens understand they can lose everything but play anyway for the rare moonshot.\n` +
-    `- "Aping in" = buying a large position fast without research, based on hype alone.\n` +
-    `- "CT" = Crypto Twitter (now X). Where most memecoin hype originates.\n` +
-    `- "Moonshot" = 100x or more return.\n` +
-    `- "Ngmi" = Not Gonna Make It. Said about a bad investment or bad trader behavior.\n` +
-    `- "Wagmi" = We're All Gonna Make It. Bullish collective battle cry.\n` +
-    `- "GM" = Good Morning. Used as a community bonding greeting.\n` +
-    `- The more ironic and self-aware the community, the more likely it is to persist.`;
+  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Infinity Council' — a multi-AI trading terminal. ChatGPT, Claude, Gemini and Grok debate every market signal together. When a Solana CA or ticker is submitted, you receive live on-chain data and must give a sharp, direct verdict. Keep responses focused and concise.]`;
 
   const systemContent = personaText + tagInstructions + timeContext + appContext + (modeConstraint ? `\n\n${modeConstraint}` : '');
   const messages = [
