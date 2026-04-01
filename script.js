@@ -1134,14 +1134,27 @@ async function fetchAIResponse(modelKey, history) {
   const agent = AI_MODELS[modelKey];
   const others = AGENT_ORDER.filter(k => k !== modelKey).map(k => AI_MODELS[k].name).join(', ');
 
+  // Filter out error messages from history before building API payload.
+  // Error strings like "[Claude error: API Error: Duplicate prompt detected]" were being
+  // fed back into subsequent rounds, causing Claude to see repeated error content → duplicate detection.
+  const cleanHistory = history.filter(msg => {
+    if (msg.role === 'assistant' || msg.agent) {
+      const text = Array.isArray(msg.content)
+        ? msg.content.find(c => c.type === 'text')?.text || ''
+        : (msg.content || '');
+      if (text.includes('API Error:') || text.includes('[Claude error') || text.includes('[Gemini error') || text.includes('[Grok error') || text.includes('[ChatGPT error')) return false;
+    }
+    return true;
+  });
+
   // Build API messages — clearly label each AI speaker so models know who said what
   // For the first user message: use full oracle-enriched content.
   // For repeated rounds (when _displayContent exists): use the clean original message
   // to prevent Claude's duplicate-prompt detection from firing on rounds 2, 3, 4.
-  const apiMessages = history.map((msg, idx) => {
+  const apiMessages = cleanHistory.map((msg, idx) => {
     if (msg.role === 'user') {
       // Use _displayContent (clean original) except for the very last user message (the live oracle entry)
-      const isLastUserMsg = history.slice(idx + 1).every(m => m.role !== 'user');
+      const isLastUserMsg = cleanHistory.slice(idx + 1).every(m => m.role !== 'user');
       const textContent = (msg._displayContent && !isLastUserMsg) ? msg._displayContent : msg.content;
       return {
         role: 'user',
