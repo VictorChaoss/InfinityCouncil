@@ -174,6 +174,72 @@
         <div id="roundtable-wrapper"></div>
     </div>
 
+    <!-- ── WELCOME MODAL (shows on first launch) ── -->
+    <div id="welcome-modal" class="modal-overlay" style="z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px);">
+        <div class="modal" style="max-width:520px; border:1px solid rgba(155,48,255,0.4); box-shadow:0 0 60px rgba(155,48,255,0.2); text-align:center; padding:0; overflow:hidden;">
+            <!-- Glow header bar -->
+            <div style="background:linear-gradient(135deg,#1a0030,#0d0d1a); padding:2.5rem 2rem 1.5rem; border-bottom:1px solid rgba(155,48,255,0.2);">
+                <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(155,48,255,0.15);border:1px solid rgba(155,48,255,0.35);padding:0.3rem 1rem;border-radius:99px;margin-bottom:1.2rem;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#9B30FF;box-shadow:0 0 6px #9B30FF;animation:ic-blink 2s infinite;"></div>
+                    <span style="font-size:0.7rem;font-weight:800;letter-spacing:3px;color:#c084fc;text-transform:uppercase;">Terminal v2 — Live</span>
+                </div>
+                <h2 style="font-size:2rem;font-weight:900;color:#fff;letter-spacing:-1px;margin:0 0 0.5rem;">Welcome to<br><span style="background:linear-gradient(90deg,#9B30FF,#e879f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Infinity Council</span></h2>
+                <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin:0;">Four AI minds. One decision. No fluff.</p>
+            </div>
+            <!-- Body -->
+            <div style="padding:1.8rem 2rem;">
+                <!-- Agents row -->
+                <div style="display:flex;gap:0.6rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;">
+                    <span style="background:rgba(0,163,255,0.1);border:1px solid rgba(0,163,255,0.3);color:#60a5fa;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">ChatGPT</span>
+                    <span style="background:rgba(0,191,255,0.1);border:1px solid rgba(0,191,255,0.3);color:#67e8f9;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">Claude</span>
+                    <span style="background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.3);color:#fb923c;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">Gemini</span>
+                    <span style="background:rgba(155,48,255,0.1);border:1px solid rgba(155,48,255,0.3);color:#c084fc;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">Grok</span>
+                </div>
+                <!-- Mode cards -->
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.8rem;">
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.9rem 0.5rem;">
+                        <div style="font-size:1.2rem;margin-bottom:0.3rem;">🪙</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PUMP.FUN</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Paste a Solana CA</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(155,48,255,0.2);border-radius:12px;padding:0.9rem 0.5rem;">
+                        <div style="font-size:1.2rem;margin-bottom:0.3rem;">⚡</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PERPS</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Live funding + OI</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.9rem 0.5rem;">
+                        <div style="font-size:1.2rem;margin-bottom:0.3rem;">📈</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">TRADFI</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Stocks · Forex · Macro</div>
+                    </div>
+                </div>
+                <!-- Token pill -->
+                <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:1.5rem;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#9B30FF;animation:ic-blink 2s infinite;box-shadow:0 0 6px #9B30FF;"></div>
+                    <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">Powered by</span>
+                    <span style="font-size:0.78rem;font-weight:800;color:#c084fc;letter-spacing:1px;">$ICx4Ai</span>
+                    <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">on Solana</span>
+                </div>
+                <button onclick="document.getElementById('welcome-modal').classList.add('hidden'); localStorage.setItem('ic_welcomed','1');"
+                    style="width:100%;background:linear-gradient(135deg,#7c22d4,#9B30FF);color:#fff;font-weight:800;font-size:1rem;padding:0.95rem;border:none;border-radius:12px;cursor:pointer;letter-spacing:0.5px;box-shadow:0 6px 24px rgba(155,48,255,0.4);transition:all 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 30px rgba(155,48,255,0.5)'"
+                    onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(155,48,255,0.4)'">
+                    ⚡ Enter the Council
+                </button>
+                <p style="margin-top:0.9rem;font-size:0.72rem;color:rgba(255,255,255,0.25);">Not financial advice. Trade responsibly.</p>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes ic-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    </style>
+    <script>
+        // Only show on first visit
+        if (localStorage.getItem('ic_welcomed')) {
+            document.getElementById('welcome-modal').classList.add('hidden');
+        }
+    </script>
+
     <!-- Settings Modal -->
     <div id="settings-modal" class="modal-overlay hidden">
         <div class="modal">
