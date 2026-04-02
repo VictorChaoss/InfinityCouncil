@@ -1201,7 +1201,7 @@ async function fetchAIResponse(modelKey, history) {
   }
 
   const timeContext = `\n\n[SYSTEM CLOCK: ${new Date().toLocaleString()} UTC. You have real-time awareness. NEVER cite prices or data from your training. If web search is available, USE IT NOW to get live prices, funding rates, and open interest before responding. Stale data is worthless here.]`;
-  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Infinity Council' — a multi-AI trading terminal. When a ticker or CA is submitted, give a sharp, direct verdict using only current data. Keep responses focused.]`;
+  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Infinity Council' — a multi-AI trading terminal. You represent ONLY yourself. NEVER write responses on behalf of other agents. NEVER simulate, quote, or roleplay as Claude, ChatGPT, Gemini, or Grok. Each agent responds in their own turn. Produce ONLY your own response, nothing else.]`;
 
   // Unique nonce per call to prevent Claude's duplicate-prompt detection from firing
   const nonce = `\n\n[call-id:${Date.now()}-${modelKey}]`;
