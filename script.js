@@ -13,7 +13,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
   },
   claude: {
     id: 'claude', name: 'Claude',
-    model_id: 'anthropic/claude-3-5-sonnet-20241022',
+    model_id: 'anthropic/claude-3-5-haiku-20241022',
     color: '#00BFFF', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
       `You are Claude (Anthropic) — the Space Stone of the Infinity Council.
@@ -1031,6 +1031,10 @@ async function runRoundtableCycle() {
       setTypingStatus(modelKey, true);
       let responseText = null, attempts = 0;
       const turnStart = Date.now();
+
+      // Claude (Anthropic) triggers "Duplicate prompt detected" if requests arrive
+      // within milliseconds of each other. A short delay before its turn prevents this.
+      if (modelKey === 'claude') await sleep(2000);
 
       while (attempts < MAX_RETRIES && !responseText) {
         try {
