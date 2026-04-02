@@ -749,6 +749,14 @@ function setTypingStatus(modelKey, isTyping) {
 // Main Chat Logic
 async function sendMessage() {
   const content = elements.messageInput.value.trim();
+  
+  // ── EASTER EGG: The Snap ──
+  if (content.toLowerCase() === '/snap') {
+    elements.messageInput.value = '';
+    executeSnap();
+    return;
+  }
+
   if (!content || isGenerating) return;
   const image = (typeof Vision !== 'undefined') ? Vision.takePending() : null;
 
