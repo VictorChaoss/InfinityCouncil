@@ -13,7 +13,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
   },
   claude: {
     id: 'claude', name: 'Claude',
-    model_id: 'anthropic/claude-3-5-haiku-20241022',
+    model_id: 'mistralai/mistral-large-2411',
     color: '#00BFFF', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
       `You are Claude (Anthropic) — the Space Stone of the Infinity Council.
@@ -1067,11 +1067,15 @@ async function runRoundtableCycle() {
       appendToTranscript('ai', responseText, modelKey, { elapsed });
 
 
-      chatHistory.push({
-        role: 'assistant',
-        content: `[${AI_MODELS[modelKey].name}]: ${responseText}`,
-        agent: modelKey,
-      });
+      // Only store successful responses in history — errors must never be re-sent to models
+      const isErrorResponse = responseText.includes('error:') || responseText.includes('API Error');
+      if (!isErrorResponse) {
+        chatHistory.push({
+          role: 'assistant',
+          content: `[${AI_MODELS[modelKey].name}]: ${responseText}`,
+          agent: modelKey,
+        });
+      }
       roundResponses.push({ name: AI_MODELS[modelKey].name, text: responseText });
 
       // A2A: Check for tags in the AI's response to continue the autonomous loop
