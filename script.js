@@ -1187,11 +1187,15 @@ async function fetchAIResponse(modelKey, history) {
 
     // Ensure the content is ALWAYS a flat string. 
     // OpenRouter / DeepSeek crash if some messages are arrays and some are strings in the same thread.
-    const rawText = Array.isArray(msg.content) ? msg.content.find(c => c.type === 'text')?.text || '' : msg.content;
-    const parsedContent = `[${speakerName} said]: ${rawText.replace(/^\[.*?\]: /, '')}`;
+    let rawText = Array.isArray(msg.content) ? msg.content.find(c => c.type === 'text')?.text || '' : msg.content;
+    // Strip out any previously baked-in tags like "[Claude]: " or "[Grok said]: " to get clean text
+    rawText = rawText.replace(/^\[.*?\]:\s*/i, '').replace(/^\[.*?said\]:\s*/i, '').trim();
+
+    const isSelf = msg.agent === modelKey;
+    const parsedContent = isSelf ? rawText : `[${speakerName} said]: ${rawText}`;
 
     return {
-      role: msg.agent === modelKey ? 'assistant' : 'user',
+      role: isSelf ? 'assistant' : 'user',
       content: parsedContent,
     };
   });
