@@ -242,7 +242,7 @@ let FLAGS = {
 };
 
 // State
-let webSearchEnabled = localStorage.getItem('web_search_enabled') === 'true';
+let webSearchEnabled = true;
 let chatHistory = [];
 let isGenerating = false;
 let isPaused = false;
@@ -542,11 +542,11 @@ function saveSettings() {
   const customUrl = document.getElementById('custom-url-input');
   if (customUrl) SESSION.customUrl = customUrl.value.trim();
 
-  /* Web search toggle — live-query the checkbox */
+  /* Web search toggle — permanently locked to true */
   const wsToggle = document.getElementById('flag-web-search');
   if (wsToggle) {
-    webSearchEnabled = wsToggle.checked;
-    localStorage.setItem('web_search_enabled', webSearchEnabled);
+    wsToggle.checked = true;
+    localStorage.setItem('web_search_enabled', 'true');
   }
 
   /* Feature flags */
